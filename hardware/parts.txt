@@ -26,9 +26,18 @@ R_G      tbs                R-EU_M0805          M0805              rcl          
 R_B      tbs                R-EU_M0805          M0805              rcl           1
 R_W      tbs                R-EU_M1206          M1206              rcl           1
 R_U      tbs                R-EU_M0805          M0805              rcl           1
+R1       10K                R-EU_M0805          M0805              rcl           1
+
+
+T1       BC847              BC847               SOT23              transistor    1
+
 
 JP1T                        FE07-1              FE07               con-lsta      1
 JP2T                        FE06-1              FE06               con-lsta      1
+
+
+
+
 
 
 C1       22p                CAP0805             0805               SparkFun      1
@@ -60,7 +69,7 @@ JP3B     ISP_B              PINHD-2X03_2.54-SMD 2X03SMD            pinhead-2    
 
 L1       20 MHz             X22-OSCILLATOR      X22                seb           1
 
-R1       10K                R-EU_M0805          M0805              rcl           1
+
 R2       10K                R-EU_M0805          M0805              rcl           1
 R3       10K                R-EU_M0805          M0805              rcl           1
 R4       10K                R-EU_M0805          M0805              rcl           1
@@ -71,8 +80,9 @@ S1                          TAC_SWITCHSMD       TACTILE_SWITCH_SMD SparkFun     
 S2                          TAC_SWITCHSMD       TACTILE_SWITCH_SMD SparkFun      1
 S3                          TAC_SWITCHSMD       TACTILE_SWITCH_SMD SparkFun      1
 
-T1       BC847              BC847               SOT23              transistor    1
+
 
 
 XL       RJ45               RJ45-SMDRJ45        85502-5008         Alex_personal 1
 XR       RJ45               RJ45-SMDRJ45        85502-5008         Alex_personal 1
+SW1      MCMT5-F-V          MCMT5-F-V          badge         (3587.504 1362.5)     R315
