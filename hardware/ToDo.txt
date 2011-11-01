@@ -1,0 +1,45 @@
+- am max487 terminirungswiderstand vorstehen (oder terminierungskabeladapter bauen)
+
+
+
+
+
+
+
+
+
+  (ich mach manchmal die stromversorgung eckig, damit ich die leicht finde beim debuggen)
+
+
+
+
+
+
+
+
+
+- einige LED namen sind in tplace, statt in tnames (hehe)
+- pin 6/7 würd ich nicht beschriften (weniger ist übersichtlicher)
+
+- mach mal den bestückungsdruck bischen dicker (10% statt 8% und vor allem: vector statt proportional)
+
+
+echt krass wie eng das da ist. einige Bahnen kannst du aber ruhig dünner machen (12mil). 
+zB:
+- alles vom atmel zum max487
+- button
+- isp
+- quarz
+
+das gleiche gilt für die Vias, die können fast alle auf 0.4mm runter, somit sparst du an einigen stellen einiges ein.
+
+DONE - statt dem bc847 würd ich nen FET nehmen.
+DONE - die UV würd ich auch schalten und nicht direkt senken
+DONE - du hast die stärke der polygone auf 0 gesetzt, das fließt dann zwar in jede ritze, aber dabei bilden sich teilweise sehr schmale striche, das kostet aufpreis (nix darf unter 12mil sein)
+DONE - du hast auf den vias keinen stopplack, besser ist das aber...
+DONE - bei den masseflächen würd ich das "isolate" auf 12 setzen
+- aref braucht eigentlich noch nen kondensator (dafür musst du wohl auf das adc6 pad verzichten)
+- avcc sollte nicht direkt an vcc, sondern über ne 0805'er 10µF spule (ich hab das mal als screensot angehangen) ich hab dafür im board auch platz gefunden (unter R2)
+-  tausch mal C5 und C6 im board, dann passt es zu den schematics
+WONTFIX - die übrigen beiden  leitungen im cat5 noch mit für spannung und masse ? 
+- vias würd ich rund machen, die spitzen ecken kommen näher an die vorbeigehenden leitungen ran, als bei runden vias
