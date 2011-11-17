@@ -20,7 +20,6 @@
 
 - einige LED namen sind in tplace, statt in tnames (hehe)
 - pin 6/7 würd ich nicht beschriften (weniger ist übersichtlicher)
-
 - mach mal den bestückungsdruck bischen dicker (10% statt 8% und vor allem: vector statt proportional)
 
 
@@ -38,6 +37,7 @@ DONE - die UV würd ich auch schalten und nicht direkt senken
 DONE - du hast die stärke der polygone auf 0 gesetzt, das fließt dann zwar in jede ritze, aber dabei bilden sich teilweise sehr schmale striche, das kostet aufpreis (nix darf unter 12mil sein)
 DONE - du hast auf den vias keinen stopplack, besser ist das aber...
 DONE - bei den masseflächen würd ich das "isolate" auf 12 setzen
+
 - aref braucht eigentlich noch nen kondensator (dafür musst du wohl auf das adc6 pad verzichten)
 - avcc sollte nicht direkt an vcc, sondern über ne 0805'er 10µF spule (ich hab das mal als screensot angehangen) ich hab dafür im board auch platz gefunden (unter R2)
 -  tausch mal C5 und C6 im board, dann passt es zu den schematics
