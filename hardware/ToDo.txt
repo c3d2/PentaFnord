@@ -1,3 +1,28 @@
+NACHFRAGEN - ist es o.k. das sebseb7+poelzi mit draufstehen?
+
+
+
+
+
+NACHFRAGE, wie groß?? - mach C3 mal deutlich grösser, pass aber beim einkaufen auf, das der auch 18V aushält, die kleinen kerkos können oft nur 10V, evtl, musst du da nen 1210'er nehmen. 
+- ist 18V jetzt die Systemspannung ? (kann mich da gar nicht mehr dran erinnern, 12V oder 24V wären irgendwie besser, aber daran wird wohl jetzt nichts mehr zu ändern sein).
+- hast du für SW1 nen lieferanten ? 
+- L1 muss 10µH sein, 0805 ist ok, aber KEIN Ferrite-Bead
+- wen dir langweilig ist, ersetzt den mega8 mal gegen einen mega88, dann hast du genauere PIN descriptions. 
+NACHFRAGE was ist ok? 1K???- 10k sind für i2c pullups bissel viel. 
+NACHFRAGE Wärme? - warum sind unter ic4 so komische pads ? 
+NACHFRAGEN: welcher Durchmesser standard, was ist max und min bei den billigen herstellern? - bei bohrungen auf pads ist 0.6 echt schon fast bisschen viel, da kommt nämlich dann manchmal der stopplack von der rückseite durchgelaufen. aber passiert nicht immer und kann man ja wegkratzen. Wenn du bohrungen verzinnen willst um die leitfühigkeit zu erhöhen musst du darauf achten das auf beiden Seiten kein stopplack ist, sonst fließt da kein Zinn rein. (Gibt so ne chekcbox "Stop" bei den Bohrungen) , im Moment haben alle Bohrungen auf der Rückseite komplett Stopplack drüber (kann ja sein das das so gewollt ist) 
+Andersrum gesehen kann es auch passieren das die 4 ,6'er Bohrungen durch die die Systemspannung immer durchmuss bischen zu wenig ist. Wenn da sagen wir mal 10A mal durchgehen sollten, wirds eng. (also dort am besten auf beiden Seiten Stopplack weglassen, dann kann man die Bohrungen an der Stelle verzinnen). Nochwas: du kannst auch entlang der + und der - Leitung die quer über das board gehen (SystemSpannung), einen kleinen strich im stopplack-layer ziehen, so das da ein strich ist ohne Stopplack, da kann man dann später nen draht auflöten um die Stromfestigkeit drastisch zu erhöhen. 
+- dein c3d2 logo entspricht nicht der CI, sieht bild-attachment.
+- bei den PADs  "+18_R" und "GND_R" sind bei einer von den vier Bohrungen (jeweils die unten rechts), zwei Bohrungen genau übereinander, das gibt nen Fehler und wird vom Hersteller erstmal beanstandet.
+
+
+
+
+
+
+
+DONE - wozu ist R3 da ?  (zum verhindern vernachlässigbar wahrscheinlicher Hardwareschäden bei Fehlprorammierung, entfernt)
 DONE - am max487 terminirungswiderstand vorstehen (oder terminierungskabeladapter bauen)
 DONE - echt krass wie eng das da ist. einige Bahnen kannst du aber ruhig dünner machen (12mil). 
   zB:
