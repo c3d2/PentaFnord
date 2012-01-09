@@ -1,3 +1,6 @@
+General Hints:
+0805er (R und C) aus der Sparkfun lib, bei 0402ern, die aus der Eagle-Lib.
+
 I2C serienwiderstände 33-100 Ohm
 
 

@@ -1,8 +1,17 @@
+
+Dioden: http://de.farnell.com/diodes-inc/bav16ws-7-f/diode-schalter-75v-0-2w-sod323/dp/1858650
+quartz 20 MHz für 0,20 € bei reichelt
+
+
+
 Partlist
 
 Exported from PentaFnord.sch at 22.10.2011 13:19:57
 
 EAGLE Version 5.11.0 Copyright (c) 1988-2010 CadSoft
+
+
+
 
 
 
