@@ -1,0 +1,4 @@
+# ignore eagle backup files
+*.?#?
+# ignore eagle project file
+*.pro
