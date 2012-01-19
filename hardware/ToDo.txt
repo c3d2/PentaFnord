@@ -1,3 +1,13 @@
+Dünnste Leiterbahn 0.2mm 
+Distrance 0.2
+ringe um löcher größer 0.3
+bohrungen unter 0.4
+mehr als 300 löcher
+
+
+
+
+
 General Hints:
 0805er (R und C) aus der Sparkfun lib, bei 0402ern, die aus der Eagle-Lib.
 
