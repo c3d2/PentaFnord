@@ -4,5 +4,5 @@
 *.pro
 # ignore editor backup files
 ToDo.txt~
-.gitignore.txt~
+ 	.gitignore~
 
