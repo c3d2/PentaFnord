@@ -5,11 +5,17 @@ bohrungen unter 0.4
 mehr als 300 löcher
 
 
-
-
-
 General Hints:
 0805er (R und C) aus der Sparkfun lib, bei 0402ern, die aus der Eagle-Lib.
+
+Kondensator-Board:
+==================
+evtl. FET als Leistungsschalte, drauf achten das RDS_on unter 100mOhm ist, besser unter 30mOhm
+N kanals FETs weniger RDS_on als die P Kanal FETs
+Vorteile P kanal zu nehmen, weil man mit N kanal nur Minus schalten sollte. 
+
+
+
 
 I2C serienwiderstände 33-100 Ohm
 
