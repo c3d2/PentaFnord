@@ -1,76 +1,17 @@
-Dünnste Leiterbahn 0.2mm 
-Distrance 0.2
-ringe um löcher größer 0.3
-bohrungen unter 0.4
+Zusatzkoste bei der Produktion:
+Dünnste Leiterbahn 0.2 mm 
+Distance kleiner als 0.2 mm
+Ringe um Vias größer 0.3 mm
+Bohrungen unter 0.4 mm
 mehr als 300 löcher
-
 
 General Hints:
 0805er (R und C) aus der Sparkfun lib, bei 0402ern, die aus der Eagle-Lib.
 
-Kondensator-Board:
-==================
-evtl. FET als Leistungsschalte, drauf achten das RDS_on unter 100mOhm ist, besser unter 30mOhm
-N kanals FETs weniger RDS_on als die P Kanal FETs
-Vorteile P kanal zu nehmen, weil man mit N kanal nur Minus schalten sollte. 
-
-
-
-
 I2C serienwiderstände 33-100 Ohm
 
-
-NACHFRAGE, wie groß?? -  1u , seb schaut nach ob es den wert als 805 gibt. MAIL Alternativ A SMC_A in Eagle mach C3 mal deutlich grösser, pass aber beim einkaufen auf, das der auch 18V aushält, die kleinen kerkos können oft nur 10V, evtl, musst du da nen 1210'er nehmen. 
-http://de.farnell.com/multicomp/mcca000549/mlcc-08055v-25v-1uf/dp/1759429
-
-JA - ist 18V jetzt die Systemspannung ? (kann mich da gar nicht mehr dran erinnern, 12V oder 24V wären irgendwie besser, aber daran wird wohl jetzt nichts mehr zu ändern sein).
-
-JA - hast du für SW1 nen lieferanten ?  SCHALTER erstmal bestellen.
-http://de.farnell.com/multicomp/mcmt5-f-v/navigationsschalter-5polig-smd/dp/1316987
-
-NACHFRAGE anderes BAuteil aus der Bibliothek - L1 muss 10µH sein, 0805 ist ok, aber KEIN Ferrite-Bead
 
 - wen dir langweilig ist, ersetzt den mega8 mal gegen einen mega88, dann hast du genauere PIN descriptions. 
 Nur Values ändern
 
-NACHFRAGE was ist ok? 4,7 K sind o.k. 10k sind für i2c pullups bissel viel. 
 
-NACHFRAGE Wärme? - warum sind unter ic4 so komische pads ? 
-
-kleinste 0.4 mm für signalleitungen
-stromleitungen 0.6
-
-große max 1mmm
-normal 0.8
-
-NACHFRAGEN: welcher Durchmesser Standard, was ist max und min bei den billigen herstellern? - bei bohrungen auf pads ist 0.6 echt schon fast bisschen viel, da kommt nämlich dann manchmal der stopplack von der rückseite durchgelaufen. aber passiert nicht immer und kann man ja wegkratzen. Wenn du bohrungen verzinnen willst um die leitfühigkeit zu erhöhen musst du darauf achten das auf beiden Seiten kein stopplack ist, sonst fließt da kein Zinn rein. (Gibt so ne chekcbox "Stop" bei den Bohrungen) , im Moment haben alle Bohrungen auf der Rückseite komplett Stopplack drüber (kann ja sein das das so gewollt ist) 
-Andersrum gesehen kann es auch passieren das die 4 ,6'er Bohrungen durch die die Systemspannung immer durchmuss bischen zu wenig ist. Wenn da sagen wir mal 10A mal durchgehen sollten, wirds eng. (also dort am besten auf beiden Seiten Stopplack weglassen, dann kann man die Bohrungen an der Stelle verzinnen). Nochwas: du kannst auch entlang der + und der - Leitung die quer über das board gehen (SystemSpannung), einen kleinen strich im stopplack-layer ziehen, so das da ein strich ist ohne Stopplack, da kann man dann später nen draht auflöten um die Stromfestigkeit drastisch zu erhöhen. 
-
-
-
-
-TODO - bei den PADs  "+18_R" und "GND_R" sind bei einer von den vier Bohrungen (jeweils die unten rechts), zwei Bohrungen genau übereinander, das gibt nen Fehler und wird vom Hersteller erstmal beanstandet.
-FIXED - dein c3d2 logo entspricht nicht der CI, sieht bild-attachment.
-DONE - Ja ist o.k. ist es o.k. das sebseb7+poelzi mit draufstehen?
-DONE - wozu ist R3 da ?  (zum verhindern vernachlässigbar wahrscheinlicher Hardwareschäden bei Fehlprorammierung, entfernt)
-DONE - am max487 terminirungswiderstand vorstehen (oder terminierungskabeladapter bauen)
-DONE - echt krass wie eng das da ist. einige Bahnen kannst du aber ruhig dünner machen (12mil). 
-  zB:
-  - alles vom atmel zum max487
-  - button
-  - isp
-  - quarz
-DONE - das gleiche gilt für die Vias, die können fast alle auf 0.4mm runter, somit sparst du an einigen stellen einiges ein.
-DONE - statt dem bc847 würd ich nen FET nehmen.
-DONE - die UV würd ich auch schalten und nicht direkt senken
-DONE - du hast die stärke der polygone auf 0 gesetzt, das fließt dann zwar in jede ritze, aber dabei bilden sich teilweise sehr schmale striche, das kostet aufpreis (nix darf unter 12mil sein)
-DONE - du hast auf den vias keinen stopplack, besser ist das aber...
-DONE - bei den masseflächen würd ich das "isolate" auf 12 setzen
-DONE - einige LED namen sind in tplace, statt in tnames (hehe)
-DONE - mach mal den bestückungsdruck bischen dicker (10% statt 8% und vor allem: vector statt proportional)
-DONe - aref braucht eigentlich noch nen kondensator (dafür musst du wohl auf das adc6 pad verzichten) (Nö. musste ich nicht)
-DONE - avcc sollte nicht direkt an vcc, sondern über ne 0805'er 10µF spule (ich hab das mal als screensot angehangen) ich hab dafür im board auch platz gefunden (unter R2)
-DONE -  tausch mal C5 und C6 im board, dann passt es zu den schematics
-DONE - vias würd ich rund machen, die spitzen ecken kommen näher an die vorbeigehenden leitungen ran, als bei runden vias
-
-WONTFIX - die übrigen beiden  leitungen im cat5 noch mit für spannung und masse ? 
