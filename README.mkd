@@ -1,6 +1,37 @@
 PentaFnord
 ============
 
-https://www.c3d2.de/wiki/PentaFnord
 
+
+Project Status
+--------------
+
+General Info: This is a project under development. So please treat the hardware design as non functional until proven otherwise.
+
+* 2012/01/27 Finally found time to write a proper Readme.mkd (.this)
+
+* 2012/01/25 Hardware design and layout of the v0.9 prototype pcbs are finished. We are waiting for the end of the Chinese New Year hollidays to send the designs to actual production.
+
+License
+-------
+All software is licensed under the Gnu General Public License Version 3 (GPLv3).
+
+The hardware design is licensed under 
+ under a [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-nc-sa/3.0/).
+
+Acknowledgements
+----------------
+
+PentaFnord was inspired by FnordLicht. 
+
+Design Considerations
+---------------------
+As cheap as cheap can. (ToDo) Cave: Lots of optional or alternative components!
+
+
+Miscellaneous (Mostly) Helpful Links
+---------------------------
+* [C3D2 Wiki Page](https://www.c3d2.de/wiki/PentaFnord) without much information
+* [Showdown - Javascript live Markdown Editor](http://softwaremaniacs.org/playground/showdown-highlight/)
+* [Github Flavoured Markdown (GFM)](http://github.github.com/github-flavored-markdown/)
 
