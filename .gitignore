@@ -3,6 +3,6 @@
 # ignore eagle project file
 *.pro
 # ignore editor backup files
-ToDo.txt~
- 	.gitignore~
+*.???~
+
 

@@ -31,7 +31,7 @@ As cheap as cheap can. (ToDo) Cave: Lots of optional or alternative components!
 
 Miscellaneous (Mostly) Helpful Links
 ---------------------------
-* [C3D2 Wiki Page](https://www.c3d2.de/wiki/PentaFnord) without much information
+* [C3D2 PentaFnord Wiki Page](https://www.c3d2.de/wiki/PentaFnord) without much information
 * [Showdown - Javascript live Markdown Editor](http://softwaremaniacs.org/playground/showdown-highlight/)
 * [Github Flavoured Markdown (GFM)](http://github.github.com/github-flavored-markdown/)
-
+* [Intalling AVR Eclipse toolchain](http://www.mikrocontroller.net/articles/AVR_Eclipse#Ubuntu_.28Zum_zweiten.29)(german)
