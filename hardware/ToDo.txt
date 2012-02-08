@@ -1,3 +1,28 @@
+(06:25:30 PM) sebseb7: Kreis 1 : Spule -> LED -> Widerstand -> Diode -> Spule -> usw.
+(06:25:51 PM) sebseb7: Kreis 2 : VCC -> FET -> Spule -> Widerstand -> GND
+(06:25:58 PM) sebseb7: Kreis 1 ist aktiv wenn der FET offen ist.
+(06:26:04 PM) sebseb7: Kreis 2 ist aktiv wenn der FET zu ist.
+(06:26:16 PM) sebseb7: Kreis 1 sollte so kurz wie möglich sein. 
+(06:26:26 PM) sebseb7: 1mm Leiterbahn kann nicht schaden im Kreis 1
+(06:26:45 PM) sebseb7: ich hab 1.27mm gemacht für Kreis1 und Kreis2
+(06:27:23 PM) sebseb7: alle Leiterbahnen die zum LM3401 gehen, können sehr klein sein, da fließt überhaupt nichts
+(06:28:58 PM) sebseb7: der Kondensator an der LED ist quasi optional, verlängert nur die Lebensdauer der LED, er funktioniert umso besser je näher er an der LED ist. 
+(06:29:42 PM) sebseb7: der kondensator am eingang sollte relativ nahe am FET sein, ist aber nicht so kritisch.
+(06:35:21 PM) sebseb7: prinzipiell ist das ne günstige anordnung: http://img210.imageshack.us/img210/3638/bildschirmfoto20120208u.png (aber du willst es vermutlich deutlich enger machen)
+(06:35:59 PM) sebseb7: denk daran alle durchkontaktierungen wo 1A fließen soll ohne stopplack zu machen.
+
+
+
+
+http://img210.imageshack.us/img210/3638/bildschirmfoto20120208u.png
+
+
+
+
+
+
+
+
 Zusatzkoste bei der Produktion:
 Dünnste Leiterbahn 0.2 mm 
 Distance kleiner als 0.2 mm
