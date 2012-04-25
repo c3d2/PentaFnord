@@ -32,6 +32,20 @@ Design Considerations
 ---------------------
 As cheap as cheap can. (ToDo) Cave: Lots of optional or alternative components!
 
+Partlist and assembly alternatives
+----------------------------------
+
+### PentaFnord Control Board
+
+D1-D7 SI-Allzweckdiode 4148 0805
+C3 10uF/25V SMC-D
+R1	10K
+R4, R5 	4K7
+R6	120
+R7, R8	680
+C1	100n
+C2	1u
+
 
 Miscellaneous (Mostly) Helpful Links
 ---------------------------
