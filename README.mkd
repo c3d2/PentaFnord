@@ -32,10 +32,10 @@ Design Considerations
 ---------------------
 As cheap as cheap can. (ToDo) Cave: Lots of optional or alternative components!
 
-Partlist and assembly alternatives
+Partlist and Assembly Alternatives
 ----------------------------------
 
-### PentaFnord Control Board
+### PentaFnord Control Board - Version 0.9
 
 D1-D7 SI-Allzweckdiode 4148 0805
 C3 10uF/25V SMC-D
@@ -45,6 +45,14 @@ R6	120
 R7, R8	680
 C1	100n
 C2	1u
+... to be continued ...
+
+
+Example Boards
+--------------
+
+### PFCB_0.9-Devel - Experimental Development and Debug Configuration
+
 
 
 Miscellaneous (Mostly) Helpful Links
