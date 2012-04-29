@@ -8,6 +8,10 @@ Project Status
 
 General Info: This is a project under development. So please treat the hardware design as non functional until proven otherwise.
 
+* 2012/04/25 Assembly of board001 completed, trying to get it working \o/
+
+* 2012/04/10 Finished boards have arrived
+
 * 2012/02/27 After the first production attempt of the board has been canceled for some reasons we are ready to go for panel production now. In the meanwhile a power led module that is fully interchangeable with the normal led module and can drive up to 5 led channels with up to 700mA has been added. And we created some other usefull gadgets as well! Check out [Seb's repository](https://github.com/sebseb7/eagle/tree/master/4CHLED) to find a power injector for the haqbus, a capacitor module to stabilize power supply, and an optically insulated data injector complete with FTDI USB to UART bridge.  
 
 * 2012/02/17 A team of highly skilled monkeys from C3D2 started the [specification of the __haqbus__](https://github.com/c3d2/haqbus) which will be the protocoll talked by the RS485 interface of the PentaFnord and some other devices.
@@ -37,6 +41,9 @@ Partlist and Assembly Alternatives
 
 ### PentaFnord Control Board - Version 0.9
 
+... work in Progress ... BEWARE
+
+IC1 ATMEGA48
 D1-D7 SI-Allzweckdiode 4148 0805
 C3 10uF/25V SMC-D
 R1	10K
@@ -46,6 +53,46 @@ R7, R8	680
 C1	100n
 C2	1u
 ... to be continued ...
+FET LED BOard: BSS123
+
+First-time Operation
+--------------------
+* Check for short circuits on +18V and +5V against GND
+* Gently apply apply power to +18V
+* Check on one of the two unmarked wirepads between PB2 and PB3 if +5V ist present
+* Connect your favourite programmer and check if the uC is responding
+ * avrdude -c usbtiny -p m48
+ * should give: avrdude: safemode: Fuses OK etc.
+* Set fuses for 20MHz crystal and brownout detection (Full Swing Crystal high delay) brownout at 4.3V
+ * avrdude -c usbtiny -p m48 -U lfuse:w:0xc7:m -U hfuse:w:0xdc:m -U efuse:w:0x01:m 
+ * Readout fuses with avrdude -c usbtiny -p m48 -v 
+ * Standard Fuses are 0x62 0xDF 0x01
+ * New Value should be 0xC7 0xDC 0x01
+ * Brownout at 2.7 V is 0xC7 0xDD 0x01 (NOT RECOMMENDED)
+
+
+
+### BUGS Encountered:
+
+* Always solder C3 after JP1, one of the pins is hard to reach
+* ripped some solderpads of when trying to unsolder JP2 (it was slightly ill adjusted)
+ * be very carefull here
+ * it was just the line connecting SPARE\_C5, so this is not a pressing problem, but the solderpad for PC5 _might_ not work.
+ * Another ripped of solderpad for GND was easy to fix.
+* The SMD pinheaders are difficult to solder, as there is a small gap between pin and solderpad wich has to be filled with tin first to allow the solderpad to heat up.
+* Was to lazy to read the manual thorouhghly.
+ * Did set DEBUGWIRE fuse bit (fuses f7 9d 01),
+ * chip became unprogrammable.
+ * NEVER EVER DO THIS!
+* Exchanged the uC by resoldering a fresh one.
+* A test program switching on and off an LED (with resistor) betwenn +5V and PortB1 didnt work, when brownout detection was set to 4.3 V . albeit Programming the uC and setting fuses was still possible.
+ * The Programm worked well when Brownout was set to 2.7 V (0xC7 0xDD 0x01).
+ * Diagnosis
+  * There was a small ripple of 100mV for 10ns in power supply when the LED was switched on. Uncritical.
+  * Some pins of the uC, especially pin 6 (one of the two +5V pins), pin 18 (AVCC), and pin 24 (ADC1) semmed to have (or actually had) a gap between pin and solderpad. Not good.
+  * Solution: Resoldering pins 1-8 and 17-24 solved the issue.
+
+
 
 
 Example Boards
@@ -61,3 +108,4 @@ Miscellaneous (Mostly) Helpful Links
 * [Showdown - Javascript live Markdown Editor](http://softwaremaniacs.org/playground/showdown-highlight/)
 * [Github Flavoured Markdown (GFM)](http://github.github.com/github-flavored-markdown/)
 * [Intalling AVR Eclipse toolchain](http://www.mikrocontroller.net/articles/AVR_Eclipse#Ubuntu_.28Zum_zweiten.29)(german)
+* [AVR Fuse Calculator](http://www.engbedded.com/fusecalc)
