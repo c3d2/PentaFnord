@@ -138,7 +138,7 @@ Example Boards
 <td>WHITE</td>
 <td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSPW5111P.pdf'>OSPW 5111 P</a></td>
 <td><a href='http://www.soselectronic.com/?str=371&artnum=101065'>SOS electronic</a></td>
-<td>48mA 15.45V </br>97mA 17,0V</td>
+<td>48mA 15.45V <br />97mA 17,0V</td>
 </tr>
 
 
@@ -146,8 +146,8 @@ Example Boards
 <td>UV 2000mcd 20-30mA 3,2-3.4 V</br>
 (that's what it said on the pack)</td>
 <td>no type known</td>
-<td>mw-shop.com</br>led-store.de</br><a href='http://www.shop-014.de/michawi-p868h34s157-50-superhelle-UV-LED.html'>(possibly these?)</a></td>
-<td>18.5mA 16.9V </br>26.7mA 17.4V </br>28.4mA 17.5V</td>
+<td>mw-shop.com<br />led-store.de<br /><a href='http://www.shop-014.de/michawi-p868h34s157-50-superhelle-UV-LED.html'>(possibly these?)</a></td>
+<td>18.5mA 16.9V <br />26.7mA 17.4V <br />28.4mA 17.5V</td>
 </tr>
 
 </table>
