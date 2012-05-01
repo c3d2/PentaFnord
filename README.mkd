@@ -80,16 +80,13 @@ First-time Operation
  * it was just the line connecting SPARE\_C5, so this is not a pressing problem, but the solderpad for PC5 _might_ not work.
  * Another ripped of solderpad for GND was easy to fix.
 * The SMD pinheaders are difficult to solder, as there is a small gap between pin and solderpad wich has to be filled with tin first to allow the solderpad to heat up.
-* Was to lazy to read the manual thorouhghly.
- * Did set DEBUGWIRE fuse bit (fuses f7 9d 01),
- * chip became unprogrammable.
- * NEVER EVER DO THIS!
-* Exchanged the uC by resoldering a fresh one.
-* A test program switching on and off an LED (with resistor) betwenn +5V and PortB1 didnt work, when brownout detection was set to 4.3 V . albeit Programming the uC and setting fuses was still possible.
- * The Programm worked well when Brownout was set to 2.7 V (0xC7 0xDD 0x01).
- * Diagnosis
+* Was to lazy to read the manual thorouhghly and did set DEBUGWIRE fuse bit (fuses f7 9d 01).
+ * Chip became unprogrammable (at least in target hardware). So NEVER EVER DO THIS!
+ * Exchanged the uC by resoldering a fresh one.
+ * A test program switching an LED between +5V and PortB1 (with resistor) on and off didn't work, while brownout detection was set to 4.3 V, albeit programming the uC and setting fuses was still possible and everything worked well when Brownout was set to 2.7 V (0xC7 0xDD 0x01).
+ * Diagnosis:
   * There was a small ripple of 100mV for 10ns in power supply when the LED was switched on. Uncritical.
-  * Some pins of the uC, especially pin 6 (one of the two +5V pins), pin 18 (AVCC), and pin 24 (ADC1) semmed to have (or actually had) a gap between pin and solderpad. Not good.
+  * Some pins of the uC, especially pin 6 (one of the two +5V pins), pin 18 (AVCC), and pin 24 (ADC1) seemed to have (or actually had) a gap between pin and solderpad. Not good.
   * Solution: Resoldering pins 1-8 and 17-24 solved the issue.
 
 
@@ -100,6 +97,76 @@ Example Boards
 
 ### PFCB_0.9-Devel - Experimental Development and Debug Configuration
 ![board001](/alxlo/PentaFnord/raw/master/img/board001.jpg)
+
+
+### LED Board 0001
+
+<table rules="rows">
+<tr>
+<th>colour</th>
+<th>type</th>
+<th>distributor</th>
+<th>measured values</th>
+</tr>
+
+<tr>
+<td>RED 50cd 15°</td>
+<td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSHR5111P.pdf'>OSHR 5111 P</a></td>
+<td><a href='http://www.soselectronic.com/?str=371&artnum=67726'>SOS electronic</a></td>
+<td>49mA 17.6V</td>
+</tr>
+
+
+<tr>
+<td>GREEN</td>
+<td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSPG5111P.pdf'>OSPG 5111P</a></td>
+<td><a href='http://www.soselectronic.com/?str=371&artnum=101068'>SOS electronic</a></td>
+<td>48mA 17.3V</td>
+</tr>
+
+
+
+<tr>
+<td>BLUE 15Cd 15°</td>
+<td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSUB5111P.pdf'>OSUB 5111 P</a></td>
+<td><a href='http://www.soselectronic.com/?str=371&artnum=101067'>SOS electronic</a></td>
+<td>48mA 16.5V</td>
+</tr>
+
+
+<tr>
+<td>WHITE</td>
+<td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSPW5111P.pdf'>OSPW 5111 P</a></td>
+<td><a href='http://www.soselectronic.com/?str=371&artnum=101065'>SOS electronic</a></td>
+<td>48mA 15.45V </br>97mA 17,0V</td>
+</tr>
+
+
+<tr>
+<td>UV 2000mcd 20-30mA 3,2-3.4 V</br>
+(that's what it said on the pack)</td>
+<td>no type known</td>
+<td>mw-shop.com</br>led-store.de</br><a href='http://www.shop-014.de/michawi-p868h34s157-50-superhelle-UV-LED.html'>(possibly these?)</a></td>
+<td>18.5mA 16.9V </br>26.7mA 17.4V </br>28.4mA 17.5V</td>
+</tr>
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Miscellaneous (Mostly) Helpful Links
