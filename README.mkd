@@ -107,13 +107,15 @@ Example Boards
 <th>type</th>
 <th>distributor</th>
 <th>measured values</th>
+<th>R, I in place</th>
 </tr>
 
 <tr>
 <td>RED 50cd 15°</td>
 <td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSHR5111P.pdf'>OSHR 5111 P</a></td>
 <td><a href='http://www.soselectronic.com/?str=371&artnum=67726'>SOS electronic</a></td>
-<td>49mA 17.6V</td>
+<td>33mA 16.7V <br /> 49mA 17.6V <br />100mA 19.8V</td>
+<td>82 Ohm, 28.9 mA</td>
 </tr>
 
 
@@ -121,40 +123,37 @@ Example Boards
 <td>GREEN</td>
 <td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSPG5111P.pdf'>OSPG 5111P</a></td>
 <td><a href='http://www.soselectronic.com/?str=371&artnum=101068'>SOS electronic</a></td>
-<td>48mA 17.3V</td>
+<td>32mA 16.3V <br /> 48mA 17.3V <br /> 100mA 19.8 V</td>
+<td>100 Ohm, 28,1mA</td>
 </tr>
-
 
 
 <tr>
 <td>BLUE 15Cd 15°</td>
 <td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSUB5111P.pdf'>OSUB 5111 P</a></td>
 <td><a href='http://www.soselectronic.com/?str=371&artnum=101067'>SOS electronic</a></td>
-<td>48mA 16.5V</td>
+<td> 33mA 15.7V <br />48mA 16.5V <br /> 100mA 18.3V</td>
+<td>120 Ohm, 29.2 mA</td>
 </tr>
-
 
 <tr>
 <td>WHITE</td>
 <td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSPW5111P.pdf'>OSPW 5111 P</a></td>
 <td><a href='http://www.soselectronic.com/?str=371&artnum=101065'>SOS electronic</a></td>
 <td>48mA 15.45V <br />97mA 17,0V</td>
+<td>33 Ohm, 92.3 mA</td>
 </tr>
 
 
 <tr>
-<td>UV 2000mcd 20-30mA 3,2-3.4 V<br />(that's what it said on the pack)</td>
+<td>UV 2000mcd 20-30mA 3,2-3,4 V<br />(that's what it said on the pack)</td>
 <td>no type known</td>
 <td>mw-shop.com<br />led-store.de<br /><a href='http://www.shop-014.de/michawi-p868h34s157-50-superhelle-UV-LED.html'>(possibly these?)</a></td>
 <td>18.5mA 16.9V <br />26.7mA 17.4V <br />28.4mA 17.5V</td>
+<td>150 Ohm, 22.6mA</td>
 </tr>
 
 </table>
-
-
-
-
-
 
 
 
