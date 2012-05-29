@@ -321,7 +321,7 @@ void update_rgb(uint8_t c)
 void enqueue_timeslot(uint8_t mask, uint16_t top)
 {
     struct timeslot_t *t = &timeslots.slot[timeslots.write];
-    t->mask = mask;
+    t->mask = mask << PWM_SHIFT;
     t->top = top;
     timeslots.write = (timeslots.write + 1) % PWM_MAX_TIMESLOTS;
 }
@@ -331,6 +331,7 @@ void dequeue_timeslot(struct timeslot_t *d)
     struct timeslot_t *t = &timeslots.slot[timeslots.read];
     d->mask = t->mask;
     d->top = t->top;
+    //d = &timeslots.slot[timeslots.read];
     timeslots.read = (timeslots.read + 1) % PWM_MAX_TIMESLOTS;
 }
 
@@ -342,7 +343,7 @@ void update_last_timeslot(uint8_t mask)
     else
         i = PWM_MAX_TIMESLOTS-1;
 
-    timeslots.slot[i].mask = mask;
+    timeslots.slot[i].mask = mask << PWM_SHIFT;
 }
 
 uint8_t timeslots_fill(void)
@@ -654,23 +655,22 @@ void pwm_modify_hsv(struct hsv_color_offset_t *color, uint8_t step, uint8_t dela
 /** timer1 overflow (=output compare a) interrupt */
 ISR(TIMER1_COMPA_vect)
 {
-    /* read next_bitmask */
-    uint8_t next_bitmask = pwm_next_bitmask;
+
     /* output new values */
-    P_PORT = (P_PORT & ~(PWM_CHANNEL_MASK)) | (next_bitmask << PWM_SHIFT);
+    P_PORT = (P_PORT & ~(PWM_CHANNEL_MASK)) | pwm_next_bitmask ;
 
     /* prepare next interrupt */
     struct timeslot_t t;
     dequeue_timeslot(&t);
 
     /* if next timeslot would happen too fast or has already happened, just spinlock */
-    while (TCNT1 + 400 > t.top)
+    while (TCNT1 + 100 > t.top)
     {
         /* spin until timer interrupt is near enough */
         while (t.top > TCNT1);
 
         /* output new values */
-        P_PORT = (P_PORT & ~(PWM_CHANNEL_MASK)) | (t.mask << PWM_SHIFT);
+        P_PORT = (P_PORT & ~(PWM_CHANNEL_MASK)) | t.mask ;
 
         /* load next timeslot */
         dequeue_timeslot(&t);
