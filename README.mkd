@@ -36,10 +36,17 @@ Design Considerations
 ---------------------
 As cheap as cheap can. (ToDo) Cave: Lots of optional or alternative components!
 
-Partlist and Assembly Alternatives
-----------------------------------
 
-### PentaFnord Control Board - Version 0.9
+Partlists and Assembly Alternatives
+===================================
+
+##PentaFnord Control Board - Version 0.9 (PFCB_0.9)
+
+TODO Purpose and some general description
+
+###Parts List - PFCB_0.9
+
+TODO list all the parts!
 
 ... work in Progress ... BEWARE
 
@@ -55,8 +62,12 @@ C2	1u
 ... to be continued ...
 FET LED BOard: BSS123
 
-First-time Operation
---------------------
+###Assembly Considerations - PFCB_0.9
+
+
+
+###First-time Operation  - PFCB_0.9
+
 * Check for short circuits on +18V and +5V against GND
 * Gently apply apply power to +18V
 * Check on one of the two unmarked wirepads between PB2 and PB3 if +5V ist present
@@ -72,7 +83,7 @@ First-time Operation
 
 
 
-### BUGS Encountered:
+### Bugs Encountered for PFCB_0.9
 
 * Always solder C3 after JP1, one of the pins is hard to reach
 * ripped some solderpads of when trying to unsolder JP2 (it was slightly ill adjusted)
@@ -90,13 +101,54 @@ First-time Operation
   * Solution: Resoldering pins 1-8 and 17-24 solved the issue.
 
 
+### Bugs Encountered for LEdboard
+* a bit screwed, FETs needed, Jumper T2 is wrong so that PORTC3 connects always to ground
 
+### Bugs Encountered for Powerledboard
+* Jumper T2 is wrong so that PORTC3 connects always to ground
 
-Example Boards
---------------
+###Example Board PFCB_0.9-Devel
 
-### PFCB_0.9-Devel - Experimental Development and Debug Configuration
+This is the __Experimental Development and Debug Configuration__ and is the first board that was ever built. There is currently only this one board built so far: PFCB#001. Lots of the annotations in the "Bugs Encountered" section gut input from this unit.
+
 ![board001](/alxlo/PentaFnord/raw/master/img/board001.jpg)
+
+
+##PentaFnord LED Board - Version 0.9 (PFLB_0.9)
+
+TODO Purpose and some general description
+
+###Parts List - PFLB_0.9
+
+TODO list all the parts!
+
+
+###Assembly Considerations - PFLB_0.9
+
+__CAVE: The schematics and hence the board design PFLB_0.9 has some serious bugs.__
+
+
+So this version will be __discontinued__. To make this design work anyway, the 
+board has to be tweaked and some minor hardware hacks are required.
+
+* TODO describe assembly hacks
+
+
+
+eingebaut in r,g nix, in blau 2*6,8 Ohm0805er in serie
+Ströme: (bei 20V)
+
+Ohne _LEDs 25mA
+
+
+
+red only 118mA
+Green Only 121 mA
+Blue only 124 mA
+White only 115 mA
+UV only 45 mA
+
+
 
 
 ### LED Board 0001
@@ -132,7 +184,7 @@ Example Boards
 <td>BLUE 15Cd 15°</td>
 <td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSUB5111P.pdf'>OSUB 5111 P</a></td>
 <td><a href='http://www.soselectronic.com/?str=371&artnum=101067'>SOS electronic</a></td>
-<td> 33mA 15.7V <br />48mA 16.5V <br /> 100mA 18.3V</td>
+<td> 33mA 15.7V <br />48mA 16.5V <br /> 100mA 18.3V </td>
 <td>120 Ohm, 29.2 mA</td>
 </tr>
 
@@ -154,11 +206,6 @@ Example Boards
 </tr>
 
 </table>
-
-
-
-
-
 
 
 

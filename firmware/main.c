@@ -108,14 +108,14 @@ int main(void){
 //        	G_buttonLong = false;
 //        }
 
-       if (G_buttonShort) {
-       	pwm_fade_rgb(&((struct rgb_color_t){250,0x00,0x00,0x00,0x00}),1,2);
-       	G_buttonShort = false;
+       if (G_buttonLong) {
+       	pwm_fade_rgb(&((struct rgb_color_t){0x01,0x00,0x00,0x00,0x00}),1,2);
+       	G_buttonLong = false;
        }
 
-       if (G_buttonLong) {
-       	pwm_fade_rgb(&((struct rgb_color_t){0x02,0xFF,0x02,0x02,0x00}), 1,2);
-       	G_buttonLong = false;
+       if (G_buttonShort) {
+       	pwm_fade_rgb(&((struct rgb_color_t){0x32,0x00,0x00,0x00,0x00}), 1,2);
+       	G_buttonShort = false;
        }
 
 //       if (G_buttonShort) {
