@@ -39,28 +39,13 @@
 
 
 /* abbreviations for port, ddr and pin */
-#define P_PORT _OUTPORT(PWM_PORT)
-#define P_DDR _DDRPORT(PWM_PORT)
+#define P_PORT 	_OUTPORT(PWM_PORT)
+#define P_DDR 	_DDRPORT(PWM_PORT)
 
 
 /* TYPES AND PROTOTYPES */
 #define PWM_MAX_TIMESLOTS (2*(PWM_CHANNELS+2))
 
-/* encapsulates all pwm data including timeslot and output mask array */
-struct timeslot_t
-{
-    uint8_t mask;
-    uint16_t top;
-};
-
-struct timeslots_t
-{
-    /* store timslots in a queue */
-    struct timeslot_t slot[PWM_MAX_TIMESLOTS];
-
-    uint8_t read;   /* current read head in 'slot' array */
-    uint8_t write;  /* current write head in 'slot' array */
-};
 
 /* internal data for the fading engine */
 struct fading_engine_t
@@ -116,20 +101,27 @@ static const uint16_t timeslot_table[] PROGMEM =  //ALEX' EXPONENTIAL CURVE
 };
 
 
+
+
 /* GLOBAL VARIABLES */
 struct global_pwm_t global_pwm;
 static struct timeslots_t timeslots;
 static struct fading_engine_t fading;
 
-/* next output bitmask */
-static volatile uint8_t pwm_next_bitmask;
+
+/* encapsulates all pwm data including timeslot and output mask array */
+static uint8_t timeslots_masks[2*(PWM_CHANNELS+2)];
+static uint16_t timeslots_tops[2*(PWM_CHANNELS+2)];
+static uint8_t timeslots_write;  /* current write head in 'slot' array */
+register uint8_t timeslots_read asm("r3");   /* current read head in 'slot' array */
+
 
 /* FUNCTIONS AND INTERRUPTS */
 /* prototypes */
 void update_pwm_timeslots(struct rgb_color_t *target);
 void update_rgb(uint8_t c);
 void enqueue_timeslot(uint8_t mask, uint16_t top);
-void dequeue_timeslot(struct timeslot_t *d);
+struct timeslot_t * dequeue_timeslot();
 void update_last_timeslot(uint8_t mask);
 uint8_t timeslots_fill(void);
 
@@ -150,6 +142,7 @@ void pwm_init(void)
     /* no prescaler, CTC mode */
     TCCR1B = _BV(CS10) | _BV(WGM12);
 
+
     /* enable timer1 overflow (=output compare 1a)
      * and output compare 1b interrupt */
     TIMSK1 |= _BV(OCIE1A) | _BV(OCIE1B);
@@ -169,11 +162,6 @@ void pwm_init(void)
     /* calculate initial timeslots (2 times) */
     update_pwm_timeslots(&global_pwm.current);
     update_pwm_timeslots(&global_pwm.current);
-
-    /* set initial timeslot */
-    struct timeslot_t t;
-    dequeue_timeslot(&t);
-    pwm_next_bitmask = t.mask;
 
     /* disable fading timers */
     fading.running = 0;
@@ -287,7 +275,31 @@ void update_pwm_timeslots(struct rgb_color_t *target)
     if (last_brightness < 222) //ALEX EXPONENTIAL CURVE
         enqueue_timeslot(mask, 65000);
 
+}
 
+
+void _update_pwm_timeslots(struct rgb_color_t *target){
+	enqueue_timeslot(0b00000000, 65000);
+	enqueue_timeslot(0b00000001, 1);
+
+	enqueue_timeslot(0b00000000, 2);
+	enqueue_timeslot(0b00000000, 65000);
+	enqueue_timeslot(0b00000000, 65000);
+	enqueue_timeslot(0b00000000, 65000);
+	enqueue_timeslot(0b00000000, 65000);
+	enqueue_timeslot(0b00000000, 65000);
+	enqueue_timeslot(0b00000000, 65000);
+	enqueue_timeslot(0b00000000, 65000);
+//	enqueue_timeslot(0b00000000, 65000);
+//	enqueue_timeslot(0b00000000, 65000);
+//	enqueue_timeslot(0b00000000, 65000);
+//	enqueue_timeslot(0b00000000, 65000);
+//	enqueue_timeslot(0b00000000, 65000);
+//	enqueue_timeslot(0b00000000, 65000);
+//	enqueue_timeslot(0b00000000, 65000);
+//	enqueue_timeslot(0b00000000, 65000);
+////	enqueue_timeslot(0b00000000, 65000);
+////	enqueue_timeslot(0b00000000, 65000);
 
 }
 
@@ -320,38 +332,37 @@ void update_rgb(uint8_t c)
 /* timeslot queue handling */
 void enqueue_timeslot(uint8_t mask, uint16_t top)
 {
-    struct timeslot_t *t = &timeslots.slot[timeslots.write];
-    t->mask = mask << PWM_SHIFT;
-    t->top = top;
-    timeslots.write = (timeslots.write + 1) % PWM_MAX_TIMESLOTS;
+    timeslots_masks[timeslots_write] = mask << PWM_SHIFT;
+    timeslots_tops[timeslots_write] = top;
+    timeslots_write++;
+    if (timeslots_write >=  PWM_MAX_TIMESLOTS) timeslots_write=0;
 }
 
-void dequeue_timeslot(struct timeslot_t *d)
-{
-    struct timeslot_t *t = &timeslots.slot[timeslots.read];
-    d->mask = t->mask;
-    d->top = t->top;
-    //d = &timeslots.slot[timeslots.read];
-    timeslots.read = (timeslots.read + 1) % PWM_MAX_TIMESLOTS;
-}
+//inline struct timeslot_t * dequeue_timeslot()
+//{
+//    struct timeslot_t *t = &timeslots.slot[timeslot_read];
+//    timeslot_read++;
+//    if (timeslot_read >= PWM_MAX_TIMESLOTS) timeslot_read =0;
+//    return t;
+//}
 
 void update_last_timeslot(uint8_t mask)
 {
     uint8_t i;
-    if (timeslots.write > 0)
-        i = timeslots.write-1;
+    if (timeslots_write > 0)
+        i = timeslots_write-1;
     else
         i = PWM_MAX_TIMESLOTS-1;
 
-    timeslots.slot[i].mask = mask << PWM_SHIFT;
+    timeslots_masks[i] = mask << PWM_SHIFT;
 }
 
 uint8_t timeslots_fill(void)
 {
-    if (timeslots.write >= timeslots.read)
-        return timeslots.write - timeslots.read;
+    if (timeslots_write >= timeslots_read)
+        return timeslots_write - timeslots_read;
     else
-        return PWM_MAX_TIMESLOTS - (timeslots.read - timeslots.write);
+        return PWM_MAX_TIMESLOTS - (timeslots_read - timeslots_write);
 }
 
 /* convert hsv to rgb color
@@ -655,30 +666,36 @@ void pwm_modify_hsv(struct hsv_color_offset_t *color, uint8_t step, uint8_t dela
 /** timer1 overflow (=output compare a) interrupt */
 ISR(TIMER1_COMPA_vect)
 {
+    /* set initial timeslot (that is initial value for bitmask */
+
 
     /* output new values */
-    P_PORT = (P_PORT & ~(PWM_CHANNEL_MASK)) | pwm_next_bitmask ;
+    P_PORT = (P_PORT & ~(PWM_CHANNEL_MASK)) | timeslots_masks[timeslots_read] ;
+    timeslots_read++;
+    if (timeslots_read >= PWM_MAX_TIMESLOTS) timeslots_read=0;
 
-    /* prepare next interrupt */
-    struct timeslot_t t;
-    dequeue_timeslot(&t);
+    //	P_PORT = 0b00010000;
+   //	P_PORT = 0b00000000;
+
 
     /* if next timeslot would happen too fast or has already happened, just spinlock */
-    while (TCNT1 + 100 > t.top)
+    while (TCNT1 + 100 > timeslots_tops[timeslots_read])
     {
         /* spin until timer interrupt is near enough */
-        while (t.top > TCNT1);
+        while (timeslots_tops[timeslots_read] > TCNT1);
 
         /* output new values */
-        P_PORT = (P_PORT & ~(PWM_CHANNEL_MASK)) | t.mask ;
+        P_PORT = (P_PORT & ~(PWM_CHANNEL_MASK)) | timeslots_masks[timeslots_read] ;
+        /* read forward to next timeslot */
+        timeslots_read++;
+        if (timeslots_read >= PWM_MAX_TIMESLOTS) timeslots_read=0;
 
-        /* load next timeslot */
-        dequeue_timeslot(&t);
     }
 
     /* save values for next interrupt */
-    OCR1B = t.top;
-    pwm_next_bitmask = t.mask;
+    OCR1B = timeslots_tops[timeslots_read];
+
+
 }
 
 /** timer1 output compare b interrupt */

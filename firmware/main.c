@@ -98,37 +98,19 @@ int main(void){
     {
 
        pwm_poll();
-//        if (G_buttonShort) {
-//        	pwm_fade_rgb(&((struct rgb_color_t){250,0x00,0x00,0x00,0x00}),100,1);
-//        	G_buttonShort = false;
-//        }
-//
-//        if (G_buttonLong) {
-//        	pwm_fade_rgb(&((struct rgb_color_t){0x02,0x02,0x02,0x02,0x00}), 100,1);
-//        	G_buttonLong = false;
-//        }
+
 
        if (G_buttonLong) {
-       	pwm_fade_rgb(&((struct rgb_color_t){0x01,0x00,0x00,0x00,0x00}),1,2);
+       	pwm_fade_rgb(&((struct rgb_color_t){0x00,0x00,0x00,0x00,0x00}),1,2);
        	G_buttonLong = false;
        }
 
        if (G_buttonShort) {
-       	pwm_fade_rgb(&((struct rgb_color_t){0x32,0x00,0x00,0x00,0x00}), 1,2);
+       	pwm_fade_rgb(&((struct rgb_color_t){0xFF,0x00,0x00,0x00,0x00}), 1,2);
        	G_buttonShort = false;
        }
 
-//       if (G_buttonShort) {
-//    	red++;
-//       	pwm_fade_rgb(&((struct rgb_color_t){red,0x00,0x00,0x00,0x00}),255,1);
-//       	G_buttonShort = false;
-//       }
-//
-//       if (G_buttonLong) {
-//    	   red--;
-//       	pwm_fade_rgb(&((struct rgb_color_t){red,0x00,0x00,0x00,0x00}), 255,1);
-//       	G_buttonLong = false;
-//       }
+
         pwm_poll();
         pwm_poll_fading();
         pwm_poll();
