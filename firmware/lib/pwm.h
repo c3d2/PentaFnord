@@ -41,7 +41,7 @@ struct global_pwm_t
     struct rgb_color_t current;
 
     /* target for fading engine */
-    struct dual_color_t target;
+    struct rgb_color_t target;
 
     /* delay and step for fading engine */
     uint8_t fade_delay[PWM_CHANNELS];
@@ -56,21 +56,15 @@ void pwm_poll(void);
 void pwm_poll_fading(void);
 
 void pwm_fade_rgb(struct rgb_color_t *color, uint8_t step, uint8_t delay);
-void pwm_fade_hsv(struct hsv_color_t *color, uint8_t step, uint8_t delay);
 
 /* return true if fading process is complete */
 bool pwm_target_reached(void);
-
-/* convert hsv to rgb color */
-void pwm_hsv2rgb(struct dual_color_t *color);
-/* convert rgb to hsv color */
-void pwm_rgb2hsv(struct dual_color_t *color);
 
 /* stop fading, hold current color */
 void pwm_stop_fading(void);
 
 /* modify color */
 void pwm_modify_rgb(struct rgb_color_offset_t *color, uint8_t step, uint8_t delay);
-void pwm_modify_hsv(struct hsv_color_offset_t *color, uint8_t step, uint8_t delay);
+
 
 #endif

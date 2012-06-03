@@ -101,7 +101,7 @@ int main(void){
 
 
        if (G_buttonLong) {
-       	pwm_fade_rgb(&((struct rgb_color_t){0x00,0x00,0x00,0x00,0x00}),1,2);
+       	pwm_fade_rgb(&((struct rgb_color_t){0x00,0x00,0x00,0x00,0xFF}),1,2);
        	G_buttonLong = false;
        }
 

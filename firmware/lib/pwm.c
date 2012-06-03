@@ -58,49 +58,12 @@ struct fading_engine_t
 };
 
 /* timer top values for 256 brightness levels (stored in flash) */
-//static const uint16_t timeslot_table[] PROGMEM =  //ORIGINAL
-//{
-//      2,     8,    18,    31,    49,    71,    96,   126, //1
-//    159,   197,   238,   283,   333,   386,   443,   504, //9
-//    569,   638,   711,   787,   868,   953,  1041,  1134, //17
-//   1230,  1331,  1435,  1543,  1655,  1772,  1892,  2016,
-//   2144,  2276,  2411,  2551,  2695,  2842,  2994,  3150, //33
-//   3309,  3472,  3640,  3811,  3986,  4165,  4348,  4535,
-//   4726,  4921,  5120,  5323,  5529,  5740,  5955,  6173, //49
-//   6396,  6622,  6852,  7087,  7325,  7567,  7813,  8063,
-//   8317,  8575,  8836,  9102,  9372,  9646,  9923, 10205, //65
-//  10490, 10779, 11073, 11370, 11671, 11976, 12285, 12598,
-//  12915, 13236, 13561, 13890, 14222, 14559, 14899, 15244, //81
-//  15592, 15945, 16301, 16661, 17025, 17393, 17765, 18141,
-//  18521, 18905, 19293, 19685, 20080, 20480, 20884, 21291, //97
-//  21702, 22118, 22537, 22960, 23387, 23819, 24254, 24693,
-//  25135, 25582, 26033, 26488, 26946, 27409, 27876, 28346, //113
-//  28820, 29299, 29781, 30267, 30757, 31251, 31750, 32251,
-//  32757, 33267, 33781, 34299, 34820, 35346, 35875, 36409, //129
-//  36946, 37488, 38033, 38582, 39135, 39692, 40253, 40818,
-//  41387, 41960, 42537, 43117, 43702, 44291, 44883, 45480, //145
-//  46080, 46684, 47293, 47905, 48521, 49141, 49765, 50393,
-//  51025, 51661, 52300, 52944, 53592, 54243, 54899, 55558, //161
-//  56222, 56889, 57560, 58235, 58914, 59598, 60285, 60975,
-//  61670, 62369, 63072, 63779,   489,  1204,  1922,  2645, //177, 178, 179, 180,__181 __, 182
-//   3371,  4101,  4836,  5574,  6316,  7062,  7812,  8566,
-//   9324, 10085, 10851, 11621, 12394, 13172, 13954, 14739,
-//  15528, 16322, 17119, 17920, 18725, 19534, 20347, 21164,
-//  21985, 22810, 23638, 24471, 25308, 26148, 26993, 27841,
-//  28693, 29550, 30410, 31274, 32142, 33014, 33890, 34770,
-//  35654, 36542, 37433, 38329, 39229, 40132, 41040, 41951,
-//  42866, 43786, 44709, 45636, 46567, 47502, 48441, 49384,
-//  50331, 51282, 52236, 53195, 54158, 55124, 56095, 57069,
-//  58047, 59030, 60016, 61006, 62000, 62998 };
-
 
 static const uint16_t timeslot_table[] PROGMEM =  //ALEX' EXPONENTIAL CURVE
 {
       //14, 28, 42, 56, 71, 86, 102, 118, 134, 150, 167, 184, 202, 220, 238, 257, 276, 295, 315, 335, 356, 377, 399, 421, 443, 466, 490, 514, 538, 563, 589, 615, 641, 669, 696, 725, 754, 783, 813, 844, 875, 907, 940, 974, 1008, 1043, 1078, 1114, 1151, 1189, 1228, 1267, 1308, 1349, 1391, 1434, 1478, 1522, 1568, 1615, 1662, 1711, 1760, 1811, 1863, 1916, 1970, 2025, 2081, 2138, 2197, 2257, 2318, 2380, 2444, 2509, 2575, 2643, 2712, 2783, 2855, 2929, 3004, 3081, 3159, 3239, 3321, 3404, 3489, 3576, 3665, 3756, 3848, 3943, 4039, 4138, 4239, 4341, 4446, 4553, 4663, 4774, 4888, 5005, 5124, 5245, 5369, 5495, 5624, 5756, 5891, 6028, 6169, 6312, 6458, 6608, 6760, 6916, 7075, 7237, 7403, 7572, 7745, 7921, 8101, 8285, 8473, 8665, 8860, 9060, 9264, 9473, 9685, 9902, 10124, 10351, 10582, 10818, 11059, 11305, 11556, 11812, 12074, 12342, 12615, 12893, 13178, 13469, 13765, 14068, 14377, 14693, 15016, 15345, 15681, 16024, 16374, 16732, 17097, 17470, 17851, 18240, 18637, 19042, 19456, 19878, 20310, 20750, 21200, 21659, 22128, 22606, 23095, 23594, 24103, 24623, 25154, 25697, 26250, 26815, 27393, 27982, 28583, 29198, 29825, 30465, 31119, 31787, 32468, 33164, 33875, 34600, 35341, 36097, 36869, 37657, 38462, 39284, 40123, 40980, 41855, 42748, 43660, 44591, 45541, 46512, 47503, 48515, 49548, 50603, 51680, 52779, 53902, 55048, 56218, 57413, 58633, 59879, 61151, 62450, 63775, 129, 1511, 2923, 4363, 5835, 7337, 8870, 10436, 12035, 13667, 15334, 17035, 18773, 20547, 22358, 24207, 26095, 28023, 29991, 32001, 34053, 36148, 38287, 40471, 42701, 44977, 47302, 49675, 52098, 54572, 57099, 59678, 62311
 		1, 28, 42, 56, 71, 86, 102, 118, 134, 150, 167, 184, 202, 220, 238, 257, 276, 295, 315, 335, 356, 377, 399, 421, 443, 466, 490, 514, 538, 563, 589, 615, 641, 669, 696, 725, 754, 783, 813, 844, 875, 907, 940, 974, 1008, 1043, 1078, 1114, 1151, 1189, 1228, 1267, 1308, 1349, 1391, 1434, 1478, 1522, 1568, 1615, 1662, 1711, 1760, 1811, 1863, 1916, 1970, 2025, 2081, 2138, 2197, 2257, 2318, 2380, 2444, 2509, 2575, 2643, 2712, 2783, 2855, 2929, 3004, 3081, 3159, 3239, 3321, 3404, 3489, 3576, 3665, 3756, 3848, 3943, 4039, 4138, 4239, 4341, 4446, 4553, 4663, 4774, 4888, 5005, 5124, 5245, 5369, 5495, 5624, 5756, 5891, 6028, 6169, 6312, 6458, 6608, 6760, 6916, 7075, 7237, 7403, 7572, 7745, 7921, 8101, 8285, 8473, 8665, 8860, 9060, 9264, 9473, 9685, 9902, 10124, 10351, 10582, 10818, 11059, 11305, 11556, 11812, 12074, 12342, 12615, 12893, 13178, 13469, 13765, 14068, 14377, 14693, 15016, 15345, 15681, 16024, 16374, 16732, 17097, 17470, 17851, 18240, 18637, 19042, 19456, 19878, 20310, 20750, 21200, 21659, 22128, 22606, 23095, 23594, 24103, 24623, 25154, 25697, 26250, 26815, 27393, 27982, 28583, 29198, 29825, 30465, 31119, 31787, 32468, 33164, 33875, 34600, 35341, 36097, 36869, 37657, 38462, 39284, 40123, 40980, 41855, 42748, 43660, 44591, 45541, 46512, 47503, 48515, 49548, 50603, 51680, 52779, 53902, 55048, 56218, 57413, 58633, 59879, 61151, 62450, 63775, 129, 1511, 2923, 4363, 5835, 7337, 8870, 10436, 12035, 13667, 15334, 17035, 18773, 20547, 22358, 24207, 26095, 28023, 29991, 32001, 34053, 36148, 38287, 40471, 42701, 44977, 47302, 49675, 52098, 54572, 57099, 59678, 62311
 };
-
-
 
 
 /* GLOBAL VARIABLES */
@@ -188,7 +151,7 @@ void pwm_poll_fading(void)
 
         /* if timer is not running and current != target, start timer */
         if (!(fading.running & mask)
-                && global_pwm.current.rgbwu[i] != global_pwm.target.rgbwu.rgbwu[i]
+                && global_pwm.current.rgbwu[i] != global_pwm.target.rgbwu[i]
                 && global_pwm.fade_delay[i] > 0) {
             timer_set(&fading.timer[i], global_pwm.fade_delay[i]);
             fading.running |= mask;
@@ -278,18 +241,11 @@ void update_pwm_timeslots(struct rgb_color_t *target)
 }
 
 
-void _update_pwm_timeslots(struct rgb_color_t *target){
-	enqueue_timeslot(0b00000000, 65000);
-	enqueue_timeslot(0b00000001, 1);
-
-	enqueue_timeslot(0b00000000, 2);
-	enqueue_timeslot(0b00000000, 65000);
-	enqueue_timeslot(0b00000000, 65000);
-	enqueue_timeslot(0b00000000, 65000);
-	enqueue_timeslot(0b00000000, 65000);
-	enqueue_timeslot(0b00000000, 65000);
-	enqueue_timeslot(0b00000000, 65000);
-	enqueue_timeslot(0b00000000, 65000);
+//void _update_pwm_timeslots(struct rgb_color_t *target){
+//	enqueue_timeslot(0b00000000, 65000);
+//	enqueue_timeslot(0b00000001, 1);
+//
+//	enqueue_timeslot(0b00000000, 2);
 //	enqueue_timeslot(0b00000000, 65000);
 //	enqueue_timeslot(0b00000000, 65000);
 //	enqueue_timeslot(0b00000000, 65000);
@@ -297,22 +253,18 @@ void _update_pwm_timeslots(struct rgb_color_t *target){
 //	enqueue_timeslot(0b00000000, 65000);
 //	enqueue_timeslot(0b00000000, 65000);
 //	enqueue_timeslot(0b00000000, 65000);
-//	enqueue_timeslot(0b00000000, 65000);
-////	enqueue_timeslot(0b00000000, 65000);
-////	enqueue_timeslot(0b00000000, 65000);
-
-}
+//}
 
 /** fade any channels not already at their target brightness */
 void update_rgb(uint8_t c)
 {
     /* return if target reached */
-    if (global_pwm.current.rgbwu[c] == global_pwm.target.rgbwu.rgbwu[c])
+    if (global_pwm.current.rgbwu[c] == global_pwm.target.rgbwu[c])
         return;
 
     /* check direction */
-    if (global_pwm.current.rgbwu[c] < global_pwm.target.rgbwu.rgbwu[c]) {
-        uint8_t diff = global_pwm.target.rgbwu.rgbwu[c] - global_pwm.current.rgbwu[c];
+    if (global_pwm.current.rgbwu[c] < global_pwm.target.rgbwu[c]) {
+        uint8_t diff = global_pwm.target.rgbwu[c] - global_pwm.current.rgbwu[c];
 
         if (diff >= global_pwm.fade_step[c])
             global_pwm.current.rgbwu[c] += global_pwm.fade_step[c];
@@ -320,7 +272,7 @@ void update_rgb(uint8_t c)
             global_pwm.current.rgbwu[c] += diff;
 
     } else {
-        uint8_t diff = global_pwm.current.rgbwu[c] - global_pwm.target.rgbwu.rgbwu[c];
+        uint8_t diff = global_pwm.current.rgbwu[c] - global_pwm.target.rgbwu[c];
 
         if (diff >= global_pwm.fade_step[c])
             global_pwm.current.rgbwu[c] -= global_pwm.fade_step[c];
@@ -365,115 +317,6 @@ uint8_t timeslots_fill(void)
         return PWM_MAX_TIMESLOTS - (timeslots_read - timeslots_write);
 }
 
-/* convert hsv to rgb color
- * (see http://en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_HSV_to_RGB )
- * and
- * http://www.enide.net/webcms/uploads/file/projects/powerpicrgb-irda/hsvspace.pdf
- */
-void pwm_hsv2rgb(struct dual_color_t *color)
-{
-    if (color->hsv.saturation == 0) {
-        for (uint8_t i = 0; i < PWM_CHANNELS; i++)
-            color->rgbwu.rgbwu[i] = color->hsv.value;
-        return;
-    }
-
-    uint16_t h = color->hsv.hue % 360;
-    uint8_t s = color->hsv.saturation;
-    uint8_t v = color->hsv.value;
-
-    uint16_t f = ((h % 60) * 255 + 30)/60;
-    uint16_t p = (v * (255-s)+128)/255;
-    uint16_t q = ((v * (255 - (s*f+128)/255))+128)/255;
-    uint16_t t = (v * (255 - ((s * (255 - f))/255)))/255;
-
-    uint8_t i = h/60;
-
-    switch (i) {
-        case 0:
-            color->rgbwu.rgbwu[0] = v;
-            color->rgbwu.rgbwu[1] = t;
-            color->rgbwu.rgbwu[2] = p;
-            break;
-        case 1:
-            color->rgbwu.rgbwu[0] = q;
-            color->rgbwu.rgbwu[1] = v;
-            color->rgbwu.rgbwu[2] = p;
-            break;
-        case 2:
-            color->rgbwu.rgbwu[0] = p;
-            color->rgbwu.rgbwu[1] = v;
-            color->rgbwu.rgbwu[2] = t;
-            break;
-        case 3:
-            color->rgbwu.rgbwu[0] = p;
-            color->rgbwu.rgbwu[1] = q;
-            color->rgbwu.rgbwu[2] = v;
-            break;
-        case 4:
-            color->rgbwu.rgbwu[0] = t;
-            color->rgbwu.rgbwu[1] = p;
-            color->rgbwu.rgbwu[2] = v;
-            break;
-        case 5:
-            color->rgbwu.rgbwu[0] = v;
-            color->rgbwu.rgbwu[1] = p;
-            color->rgbwu.rgbwu[2] = q;
-            break;
-    }
-}
-
-/* convert rgb to hsv color
- * (see http://en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV )
- * and
- * http://www.enide.net/webcms/uploads/file/projects/powerpicrgb-irda/hsvspace.pdf
- */
-void pwm_rgb2hsv(struct dual_color_t *color)
-{
-    /* search min and max */
-    uint8_t max = color->rgbwu.red;
-    uint8_t min = max;
-
-    if (color->rgbwu.green > max)
-        max = color->rgbwu.green;
-    if (color->rgbwu.blue > max)
-        max = color->rgbwu.blue;
-
-    if (color->rgbwu.green < min)
-        min = color->rgbwu.green;
-    if (color->rgbwu.blue < min)
-        min = color->rgbwu.blue;
-
-    uint16_t hue = 0;
-    uint8_t diff = max - min;
-    uint8_t diffh = diff/2;
-
-    /* compute value and saturation */
-    color->hsv.value = max;
-    color->hsv.saturation = 0;
-
-    if (max > 0)
-        color->hsv.saturation = ((255 * diff)+max/2)/max;
-    else {
-        color->hsv.saturation = 0;
-        color->hsv.hue = 0; /* undefined */
-        return;
-    }
-
-    if (max == min) {
-        hue = 0;
-    } else if (max == color->rgbwu.red) {
-        hue = (60 * (color->rgbwu.green - color->rgbwu.blue) + diffh)/diff + 360;
-    } else if (max == color->rgbwu.green) {
-        hue = (60 * (color->rgbwu.blue - color->rgbwu.red) + diffh)/diff + 120;
-    } else if (max == color->rgbwu.blue) {
-        hue = (60 * (color->rgbwu.red - color->rgbwu.green) + diffh)/diff + 240;
-    }
-
-    hue = hue % 360;
-
-    color->hsv.hue = hue;
-}
 
 /* stop fading, hold current color */
 void pwm_stop_fading(void)
@@ -500,7 +343,7 @@ static void compute_speed(uint8_t step, uint8_t delay)
     uint8_t dist = 0;
 
     for (uint8_t i = 0; i < PWM_CHANNELS; i++) {
-        uint8_t d = diff_abs(global_pwm.target.rgbwu.rgbwu[i], global_pwm.current.rgbwu[i]);
+        uint8_t d = diff_abs(global_pwm.target.rgbwu[i], global_pwm.current.rgbwu[i]);
 
         if (d > dist) {
             max = i;
@@ -509,14 +352,8 @@ static void compute_speed(uint8_t step, uint8_t delay)
     }
 
     /* adjust fading speeds, relative to max distance */
-    // huh the overflows in the oriinal code here give me the creeps
-    // Encountered Problem: When Fading from
-    // 250,0,0 to 2,2,2  (step100, delay 1) the red channel fades to 02 immediately,
-    // the other channels will come on only after about 1 second
-    //max = 0
-    //dist = 248
-    global_pwm.fade_step[max] = step;  //100
-    global_pwm.fade_delay[max] = delay; //1
+    global_pwm.fade_step[max] = step;
+    global_pwm.fade_delay[max] = delay;
     uint8_t cycles = dist/step;  // number of timer cycles needed to reach target
     if (0 == cycles) cycles = 1;
 
@@ -524,7 +361,7 @@ static void compute_speed(uint8_t step, uint8_t delay)
         if (i == max)
             continue;
 
-        uint8_t d = diff_abs(global_pwm.target.rgbwu.rgbwu[i], global_pwm.current.rgbwu[i]);
+        uint8_t d = diff_abs(global_pwm.target.rgbwu[i], global_pwm.current.rgbwu[i]);
 
         // number of timer cycles cyc for significiant channel to reach destination is
         // roughly cyc= dist/step  (it might be dist/step+1, but we are generous here)
@@ -558,7 +395,7 @@ void pwm_fade_rgb(struct rgb_color_t *color, uint8_t step, uint8_t delay)
 
     /* set target color */
     for (uint8_t i = 0; i < PWM_CHANNELS; i++)
-        global_pwm.target.rgbwu.rgbwu[i] = color->rgbwu[i];
+        global_pwm.target.rgbwu[i] = color->rgbwu[i];
 
     /* compute correct speed for all channels */
     if (delay == 0)
@@ -569,34 +406,11 @@ void pwm_fade_rgb(struct rgb_color_t *color, uint8_t step, uint8_t delay)
     fading.running = 0;
 }
 
-void pwm_fade_hsv(struct hsv_color_t *color, uint8_t step, uint8_t delay)
-{
-    /* apply offsets for step and delay */
-    //step = remote_apply_offset(step, global_remote.offsets.step);
-    //delay = remote_apply_offset(delay, global_remote.offsets.delay);
-	// Not implemented in PentaFnord
-
-    /* convert color */
-    memcpy(&global_pwm.target.hsv, color, sizeof(struct hsv_color_t));
-
-    /* apply offsets */
-    //remote_apply_hsv_offset(&global_pwm.target.hsv);
-	// Not implemented in PentaFnord
-
-    /* update rgb color in target */
-    pwm_hsv2rgb(&global_pwm.target);
-
-    /* compute correct speed for all channels */
-    compute_speed(step, delay);
-
-    /* disable timer */
-    fading.running = 0;
-}
 
 bool pwm_target_reached(void)
 {
     for (uint8_t i = 0; i < PWM_CHANNELS; i++) {
-        if (global_pwm.target.rgbwu.rgbwu[i] != global_pwm.current.rgbwu[i])
+        if (global_pwm.target.rgbwu[i] != global_pwm.current.rgbwu[i])
             return false;
     }
 
@@ -607,7 +421,7 @@ bool pwm_target_reached(void)
 void pwm_modify_rgb(struct rgb_color_offset_t *color, uint8_t step, uint8_t delay)
 {
     for (uint8_t i = 0; i < PWM_CHANNELS; i++) {
-        int16_t current = global_pwm.target.rgbwu.rgbwu[i];
+        int16_t current = global_pwm.target.rgbwu[i];
         current += color->rgbwu[i];
 
         if (current > 255)
@@ -615,7 +429,7 @@ void pwm_modify_rgb(struct rgb_color_offset_t *color, uint8_t step, uint8_t dela
         if (current < 0)
             current = 0;
 
-        global_pwm.target.rgbwu.rgbwu[i] = LO8(current);
+        global_pwm.target.rgbwu[i] = LO8(current);
     }
 
     compute_speed(step, delay);
@@ -624,41 +438,6 @@ void pwm_modify_rgb(struct rgb_color_offset_t *color, uint8_t step, uint8_t dela
     fading.running = 0;
 }
 
-void pwm_modify_hsv(struct hsv_color_offset_t *color, uint8_t step, uint8_t delay)
-{
-    /* convert current target color from rgb to hsv */
-    pwm_rgb2hsv(&global_pwm.target);
-
-    /* apply changes, hue */
-    global_pwm.target.hsv.hue += color->hue;
-
-    /* saturation */
-    int16_t sat = global_pwm.target.hsv.saturation;
-    sat += color->saturation;
-    if (sat > 255)
-        sat = 255;
-    if (sat < 0)
-        sat = 0;
-    global_pwm.target.hsv.saturation = LO8(sat);
-
-    /* value */
-    int16_t val = global_pwm.target.hsv.value;
-    val += color->value;
-    if (val > 255)
-        val = 255;
-    if (val < 0)
-        val = 0;
-    global_pwm.target.hsv.value = LO8(val);
-
-    /* re-convert to rgb */
-    pwm_hsv2rgb(&global_pwm.target);
-
-    /* compute correct speed for all channels */
-    compute_speed(step, delay);
-
-    /* disable timer */
-    fading.running = 0;
-}
 
 
 /** interrupts*/
