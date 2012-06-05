@@ -347,7 +347,7 @@ static void compute_speed(uint8_t step, uint8_t delay)
 
         if (d > dist) {
             max = i;
-            dist = d; //250
+            dist = d;
         }
     }
 
@@ -378,14 +378,15 @@ static void compute_speed(uint8_t step, uint8_t delay)
         // if d is small and we use many cycles we might reach the target much to early
         // so to make things smoother, we adjust the delay time
         uint8_t mycycles = d/mystep;
-        if (0==mycycles) mycycles=1;
+        if (0 == mycycles) mycycles=1;
 
         mydelay = cycles/mycycles * delay;
-
+        if (0 == mydelay) mydelay=1;
 
 
         global_pwm.fade_delay[i] = mydelay;
         global_pwm.fade_step[i] = mystep;
+
     }
 }
 
@@ -404,6 +405,7 @@ void pwm_fade_rgb(struct rgb_color_t *color, uint8_t step, uint8_t delay)
 
     /* disable timer */
     fading.running = 0;
+
 }
 
 
