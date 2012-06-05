@@ -40,12 +40,11 @@
  */
 
 
-uint8_t oldinput; // button readings from last poll cycle
-uint8_t curinput; // button readings from current poll cycle
-uint8_t btnstate;
-uint8_t btncounter;
-
-static timer_t btntimer;
+static uint8_t oldinput; // button readings from last poll cycle
+static uint8_t curinput; // button readings from current poll cycle
+static uint8_t btnstates[BTN_BUTTONS];
+static uint8_t btncounters[BTN_BUTTONS];
+static timer_t btntimers[BTN_BUTTONS];
 
 
 void button_init(){
@@ -59,81 +58,84 @@ void button_init(){
 	// set predefined buttonstates
 	oldinput = 0;
 	curinput = 0;
-	btnstate = 0;
-	btncounter = 0;
+	for(uint8_t i=0; i<BTN_BUTTONS; i++){
+		btnstates[i] = BTNST_NTRL;
+		btncounters[i] = 0;
+		timer_set(&btntimers[i], 0x05); //50ms
+	}
 	//init button counter
-	timer_set(&btntimer, 0x05); //50ms
+
 }
 
 
-void button_clear(void){
-//	G_buttonKlick = false;
-//	G_buttonHold = false;
+// reset button to neutral state
+void button_clear(uint8_t button){
+	btnstates[button] = BTNST_NTRL;
 }
 
-uint8_t btn_down(){
-//	G_buttonKlick = false;
-//	G_buttonHold = false;
-	return (curinput & 0b00010000);
-}
+
 
 
 void button_poll(){
-	if (timer_expired(&btntimer)){
+	curinput = ~((PINC & 0b00001111) | ((PINB << 3) & 0b00010000)) & 0b00011111;
+	uint8_t mask = 1;
+	for(uint8_t i=0; i<BTN_BUTTONS; i++){
+		if (timer_expired(&btntimers[i])){
+			switch(btnstates[i])
+			{
+				case BTNST_NTRL: //NEUTRAL
+					if (curinput & mask){ //button down
+						btncounters[i] = 0;
+						btnstates[i] = BTNST_DBNC;
+					}
+					break;
 
-		curinput = ~((PINC & 0b00001111) | ((PINB << 3) & 0b00010000)) & 0b00011111;
+				case BTNST_DBNC: //intermediate state, check if button is still pressed to debounce
+			    	if (curinput & mask){
+			    		//button still down, so it is pressed for sure
+			    		btncounters[i]++;
+			    		btnstates[i] = BTNST_SDN;
 
-		switch(btnstate)
-		{
-		    case 1: //intermediate state, check if button is still pressed to debounce
-		    	if (curinput & 0b01){
-		    		//button still down, so it is pressed for sure
-		    		btncounter++;
-		    		btnstate = 2;
+			    	} else {
+			    		//button was released
+			    		btnstates[i] = BTNST_NTRL;
+			    	}
+			        break;
+			    case BTNST_SDN: //is shortpressed and still held down
+			    	if (curinput & mask){
+			    		btncounters[i]++;
+			    		if (btncounters[i] > BTN_T_LONGFACT){ //500ms held
+			    			btnstates[i] = BTNST_LDN;
+			    		}
+			    	} else { //button was released
+			    		btnstates[i] = BTNST_SUP;
+			    		//signal shortclick
+			    	}
+			        break;
+			    case BTNST_LDN: //is longpressed and still held down
+			    	if (!(curinput & mask)){
+			    		//button was released
+			    		btnstates[i] = BTNST_LUP; //signal longpress
 
-		    	} else {
-		    		//button was released
-		    		btnstate = 0;
-		    	}
-		        break;
-		    case 2: //is shortpressed and still held down
-		    	if (curinput & 0b01){
-		    		btncounter++;
-		    		if (btncounter >10){ //500ms held
-		    			btnstate =3;
-		    		}
-		    	} else { //button was released
-		    		btnstate = 0;;
-		    		//signal shortclick
-		    		G_buttonShort = true;
-		    	}
-		        break;
-		    case 3: //is longpressed and still held down
-		    	if (!(curinput & 0b01)){
-		    		//button was released
-		    		btnstate = 0;
-		    		//signal longpress
-		    		G_buttonLong = true;
-		    	}
-		    	break;
-		    default : //0
-		        if (curinput & 0b00000001){
-		        	//button down
-		        	btncounter = 0;
-		        	btnstate = 1;
+			    	}
+			    	break;
+			    default: //curently catches BTNST_SUP and BTNST_LUP
+			    	{}
+			    	// do nothing yet
+			} //end switch
 
-		        }
-
-		}
-		oldinput = curinput;
-		timer_set(&btntimer, 0x05);
-	}
-
-
+			timer_set(&btntimers[i], BTN_T_DEBOUNCE);
+		} //end if timer expired
+		mask<<=1;
+	} //end for
+	oldinput = curinput;
 	return;
 
 }
 
+bool btn_state(uint8_t btnstate, uint8_t btn){
+	return (btnstates[btn]==btnstate);
+}
 
 
 

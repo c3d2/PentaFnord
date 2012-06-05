@@ -76,8 +76,7 @@
 #endif
 //
 //
-EXTERN bool G_buttonShort; //Button has been clickes
-EXTERN bool G_buttonLong;  //Button has been long pressed
+
 //EXTERN uint8_t G_mode;     //Current Operating mode
 //EXTERN uint8_t G_trigger;
 //EXTERN bool G_greenUp;

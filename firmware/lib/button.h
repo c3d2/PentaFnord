@@ -28,11 +28,47 @@
 
 #include <stdbool.h>
 
+#define BTN_UP     		0
+#define BTN_DOWN		1
+#define BTN_RIGHT		2
+#define BTN_LEFT		3
+#define BTN_CENTER		4
+
+#define BTN_BUTTONS     5
+
+#define BTN_T_DEBOUNCE  5  // 50ms debounce time = minimum short press time
+#define BTN_T_LONGFACT  10 // after 10 * T_DEBOUNCE = 500ms button reads as long pressed
+
+
+#define BTNST_NTRL	0	// neutral - initial state nothing interesting, please go along
+
+#define BTNST_DBNC	1	// debounce - pin went up, but we wait for things to stabilize and stop oscillating
+
+#define BTNST_SDN 	2   // affirmative, button is pressed,
+						// and it's pressed no longer than
+						// BTN_T_LONGFACT * BTN_T_DEBOUNCE * 10ms
+
+#define BTNST_SUP	3   // and button went up after beeing pressed for a _short_ time
+
+#define BTNST_LDN  	4   // button is still down for more than
+						//BTN_T_LONGFACT * BTN_T_DEBOUNCE * 10ms
+
+#define BTNST_LUP   5   // button came up after being pressed for a long time
+
+
 void button_init();
+
 void button_poll();
-uint8_t btn_down();
-//void button_clear();
-//void buttonDisplayMode();
+
+// reset button to neutral state
+void button_clear(uint8_t button);
+
+//test if buttonstate von btn eqals btnstate, returns true if yes
+bool btn_state(uint8_t btnstate, uint8_t btn);
+
+
+
+
 
 
 #endif /* BUTTON_H */

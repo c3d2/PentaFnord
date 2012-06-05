@@ -42,8 +42,6 @@
 #include "lib/common.h"
 
 
-
-
 //void mode_poll();
 
 	volatile uint8_t count;
@@ -66,9 +64,6 @@ int main(void){
     pwm_init();
     timer_init();
     button_init();
-    G_buttonLong = false;
-    G_buttonShort = false;
-
 
     /* enable interrupts globally */
     sei();
@@ -100,17 +95,31 @@ int main(void){
        pwm_poll();
 
 
-       if (G_buttonLong) {
-       	pwm_fade_rgb(&((struct rgb_color_t){0x00,0x00,0x00,0x00,0xFF}),1,2);
-       	G_buttonLong = false;
+       if (btn_state(BTNST_SUP, BTN_UP)) {
+       	pwm_fade_rgb(&((struct rgb_color_t){0xFF,0x00,0x00,0x00,0x00}),2,1);
+       	button_clear(BTN_UP);
        }
 
-       if (G_buttonShort) {
-       	pwm_fade_rgb(&((struct rgb_color_t){0xFF,0x00,0x00,0x00,0x00}), 1,2);
-       	G_buttonShort = false;
+       if (btn_state(BTNST_SUP, BTN_RIGHT)) {
+       	pwm_fade_rgb(&((struct rgb_color_t){0x00,0xFF,0x00,0x00,0x00}), 2,1);
+       	button_clear(BTN_RIGHT);
        }
-
-
+       if (btn_state(BTNST_SUP, BTN_DOWN)) {
+       	pwm_fade_rgb(&((struct rgb_color_t){0x00,0x00,0xFF,0x00,0x00}), 2,1);
+       	button_clear(BTN_DOWN);
+       }
+       if (btn_state(BTNST_SUP, BTN_LEFT)) {
+       	pwm_fade_rgb(&((struct rgb_color_t){0x00,0x00,0x00,0xFF,0x00}), 2,1);
+       	button_clear(BTN_LEFT);
+       }
+       if (btn_state(BTNST_LUP, BTN_UP)) {
+       	pwm_fade_rgb(&((struct rgb_color_t){0x00,0x00,0x00,0x00,0xFF}),2,1);
+       	button_clear(BTN_UP);
+       }
+       if (btn_state(BTNST_LUP, BTN_CENTER)) {
+       	pwm_fade_rgb(&((struct rgb_color_t){0xFF,0xFF,0xFF,0xFF,0xFF}),2,1);
+       	button_clear(BTN_CENTER);
+       }
         pwm_poll();
         pwm_poll_fading();
         pwm_poll();
