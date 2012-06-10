@@ -85,6 +85,7 @@ FET LED BOard: BSS123
 
 ### Bugs Encountered for PFCB_0.9
 
+* The print denoting pin 1 and 6 of jumper 2 is wrong. Pin 1 is actualy beneath C2 and pin 6 is on the side of the board with all the solderpads for the ports. This is fixed in 0.91
 * Always solder C3 after JP1, one of the pins is hard to reach
 * ripped some solderpads of when trying to unsolder JP2 (it was slightly ill adjusted)
  * be very carefull here

@@ -10,6 +10,9 @@
  * <lars@public.noschinski.de>, originally published and of course
  * republished under the terms of the GNU General Public License version 3
  *
+ * The USART control code is derived by code from the 4CHLED project
+ * by sebseb7: https://github.com/sebseb7/eagle/tree/master/4CHLED/firmware
+ *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License version 3 as published by
  * the Free Software Foundation.
@@ -64,6 +67,7 @@ int main(void){
     pwm_init();
     timer_init();
     button_init();
+    USART0_Init();
 
     /* enable interrupts globally */
     sei();
@@ -127,6 +131,33 @@ int main(void){
        }
         pwm_poll();
         pwm_poll_fading();
+
+		uint8_t data = 0;
+		if(USART0_Getc_nb(&data)){
+			//USART0_putc(~0x55);
+			if(data == 0x30) {
+				pwm_fade_rgb(&((struct rgb_color_t){0xFF,0xFF,0xFF,0xFF,0xFF}),0xFF,1);
+				USART0_putc(0x88);
+			}
+			if(data == 0x31) {
+				pwm_fade_rgb(&((struct rgb_color_t){0xFF,0x00,0x00,0x00,0x00}),0xFF,1);
+				USART0_putc(0x31 );
+			}
+			if(data == 0x32) {
+				pwm_fade_rgb(&((struct rgb_color_t){0x00,0xFF,0x00,0x00,0x00}),0xFF,1);
+				//USART0_putc(0x31 );
+			}
+			if(data == 0x33) {
+				pwm_fade_rgb(&((struct rgb_color_t){0x00,0x00,0xFF,0x00,0x00}),0xFF,1);
+				//USART0_putc(0x31 );
+			}
+			if(data == 0x20) {
+				pwm_fade_rgb(&((struct rgb_color_t){0x00,0x00,0x00,0x00,0x00}),0xFF,1);
+				USART0_putc(data);
+			}
+		}
+
+
         pwm_poll();
         button_poll();
         pwm_poll();
