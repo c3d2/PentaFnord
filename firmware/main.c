@@ -98,6 +98,7 @@ int main(void){
        if (btn_state(BTNST_SUP, BTN_UP)) {
        	pwm_fade_rgb(&((struct rgb_color_t){0xFF,0x00,0x00,0x00,0x00}),2,1);
        	button_clear(BTN_UP);
+
        }
 
        if (btn_state(BTNST_SUP, BTN_RIGHT)) {
