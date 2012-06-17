@@ -29,14 +29,12 @@
 #include "../globals.h"
 #include "button.h"
 
-
-
 /*
- * RIGHT	ADC2		PC2				PC0
+ * RIGHT	ADC2		PC2			PC0
  * LEFT		SPARE_C3	PC3
  * DOWN		ADC1		PC1		  PC3   PB1   PC2
  * UP		ADC0		PC0
- * PRESS	SPARE_B1	PB1				PC1
+ * PRESS	SPARE_B1	PB1			PC1
  */
 
 
@@ -74,63 +72,56 @@ void button_clear(uint8_t button){
 }
 
 
+void stateswitch(uint8_t i ){
+	switch(btnstates[i])
+	{
+		case BTNST_NTRL: //NEUTRAL
+			if (curinput & (1<<i)){ //button down
+				btncounters[i] = 0;
+				btnstates[i] = BTNST_DBNC;
+			}
+			break;
+		//intermediate state, check if button is still pressed to debounce
+		case BTNST_DBNC: 
+			btnstates[i] = (curinput & (1<<i))? BTNST_SDN: BTNST_NTRL;
+			(btncounters[i])++;
+			break;
+
+		case BTNST_SDN: //is shortpressed and still held down
+			if (curinput & (1<<i)){
+				btncounters[i]++;
+				if (btncounters[i] > BTN_T_LONGFACT){ //500ms held
+					btnstates[i] = BTNST_LDN;
+				}
+			} else { //button was released
+				btnstates[i] = BTNST_SUP;
+				//signal shortclick
+			}
+			break;
+		case BTNST_LDN: //is longpressed and still held down
+			if (!(curinput & (1<<i))){
+				//button was released
+				btnstates[i] = BTNST_LUP; //signal longpress
+			}
+			break;
+		default: //curently catches BTNST_SUP and BTNST_LUP
+			// do nothing yet
+			;
+	} //end switch
+	timer_set(&btntimers[i], BTN_T_DEBOUNCE);
+}
+
 
 
 void button_poll(){
 	curinput = ~((PINC & 0b00001111) | ((PINB << 3) & 0b00010000)) & 0b00011111;
-	uint8_t mask = 1;
 	for(uint8_t i=0; i<BTN_BUTTONS; i++){
 		if (timer_expired(&btntimers[i])){
-			switch(btnstates[i])
-			{
-				case BTNST_NTRL: //NEUTRAL
-					if (curinput & mask){ //button down
-						btncounters[i] = 0;
-						btnstates[i] = BTNST_DBNC;
-					}
-					break;
-
-				case BTNST_DBNC: //intermediate state, check if button is still pressed to debounce
-			    	if (curinput & mask){
-			    		//button still down, so it is pressed for sure
-			    		btncounters[i]++;
-			    		btnstates[i] = BTNST_SDN;
-
-			    	} else {
-			    		//button was released
-			    		btnstates[i] = BTNST_NTRL;
-			    	}
-			        break;
-			    case BTNST_SDN: //is shortpressed and still held down
-			    	if (curinput & mask){
-			    		btncounters[i]++;
-			    		if (btncounters[i] > BTN_T_LONGFACT){ //500ms held
-			    			btnstates[i] = BTNST_LDN;
-			    		}
-			    	} else { //button was released
-			    		btnstates[i] = BTNST_SUP;
-			    		//signal shortclick
-			    	}
-			        break;
-			    case BTNST_LDN: //is longpressed and still held down
-			    	if (!(curinput & mask)){
-			    		//button was released
-			    		btnstates[i] = BTNST_LUP; //signal longpress
-
-			    	}
-			    	break;
-			    default: //curently catches BTNST_SUP and BTNST_LUP
-			    	{}
-			    	// do nothing yet
-			} //end switch
-
-			timer_set(&btntimers[i], BTN_T_DEBOUNCE);
+			stateswitch(i);
 		} //end if timer expired
-		mask<<=1;
 	} //end for
 	oldinput = curinput;
 	return;
-
 }
 
 bool btn_state(uint8_t btnstate, uint8_t btn){

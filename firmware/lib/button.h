@@ -56,19 +56,15 @@
 #define BTNST_LUP   5   // button came up after being pressed for a long time
 
 
-void button_init();
+void button_init(void);
 
-void button_poll();
+void button_poll(void);
 
 // reset button to neutral state
 void button_clear(uint8_t button);
 
 //test if buttonstate von btn eqals btnstate, returns true if yes
 bool btn_state(uint8_t btnstate, uint8_t btn);
-
-
-
-
 
 
 #endif /* BUTTON_H */

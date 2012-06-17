@@ -28,7 +28,6 @@
 #include <avr/interrupt.h>
 #include <avr/common.h>
 #include <avr/io.h>
-#include "io.h"
 #include "timer.h"
 
 static volatile uint8_t internal_counter;

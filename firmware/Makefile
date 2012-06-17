@@ -43,7 +43,7 @@ F_CPU = $(F_OSC)
 FUSE_SETTINGS = -U lfuse:w:0xc6:m -U hfuse:w:0xdd:m -U efuse:w:0x01:m 
 # MCU name
 #MCU = atmega16
-MCU = atmega44
+MCU = atmega48
 
 # Main Oscillator Frequency
 # This is only used to define F_OSC in all assembler and c-sources.

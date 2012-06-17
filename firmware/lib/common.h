@@ -43,6 +43,7 @@
 #define _PCINT(name)             _CONCAT(PCINT, name)
 
 /* __noinline attribute (opposite of inline attribute */
+//john zweifelt die usefullness an....
 #define __noinline __attribute__((noinline))
 
 ///* structure for accessing bytes and words in an uint32_t */
