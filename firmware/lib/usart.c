@@ -63,7 +63,7 @@ void USART0_Init (void)
 	// set baudrate
 		#undef BAUD
 		#define BAUD 500000
-		#include <util/setbaud.h>
+		#include <util/setbaud.h><util/setbaud.h>
 		UBRR0H = UBRRH_VALUE;
 		UBRR0L = UBRRL_VALUE;
 
