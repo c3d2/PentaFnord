@@ -55,6 +55,9 @@
 
 #define BTNST_LUP   5   // button came up after being pressed for a long time
 
+#define BTNST_SUPDBNC 6 // debounce after short up
+#define BTNST_LUPDBNC 7 // debounce after long up
+
 
 void button_init(void);
 

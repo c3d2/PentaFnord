@@ -104,7 +104,39 @@ void stateswitch(uint8_t i ){
 				btnstates[i] = BTNST_LUP; //signal longpress
 			}
 			break;
-		default: //curently catches BTNST_SUP and BTNST_LUP
+		case BTNST_SUP: //Button came up after being pressed shortly
+			if ((curinput & (1<<i))){
+				//button was pressed again or is bouncing after release
+				btnstates[i] = BTNST_SUPDBNC; //going in special debounce
+				btncounters[i] = 0;
+			}
+			break;
+		case BTNST_LUP: //Button came up after being pressed for a long time
+			if ((curinput & (1<<i))){
+				//button was pressed again or is bouncing after release
+				btnstates[i] = BTNST_LUPDBNC; //going in special debounce
+				btncounters[i] = 0;
+			}
+			break;
+		case BTNST_SUPDBNC: //Button was pressed again after beeing short pressed(or is bouncing)
+			if ((curinput & (1<<i))){
+				//button is still pressed --> going to shortpress
+				btncounters[i]++;
+				btnstates[i] = BTNST_SDN; //starting over from short pressed
+			} else {
+				btnstates[i] = BTNST_SUP; //nope, it was bouncing, back to old state
+			}
+			break;
+		case BTNST_LUPDBNC: //Button was pressed again after beeing short pressed(or is bouncing)
+			if ((curinput & (1<<i))){
+				//button is still pressed --> going to shortpress
+				btncounters[i]++;
+				btnstates[i] = BTNST_SDN; //starting over from short pressed
+			} else {
+				btnstates[i] = BTNST_LUP; //nope, it was bouncing, back to old state
+			}
+			break;
+		default: //curently catches nothing
 			// do nothing yet
 			;
 	} //end switch
