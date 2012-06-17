@@ -40,7 +40,7 @@ F_OSC = 20000000
 F_CPU = $(F_OSC)
 
 
-FUSE_SETTINGS = -U lfuse:w:0xc6:m -U hfuse:w:0xdd:m -U efuse:w:0x01:m 
+FUSE_SETTINGS = -U lfuse:w:0xc7:m -U hfuse:w:0xdc:m -U efuse:w:0x01:m 
 # MCU name
 #MCU = atmega16
 MCU = atmega48
