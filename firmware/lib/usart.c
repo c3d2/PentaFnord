@@ -60,21 +60,17 @@ ISR (USART_RX_vect)
 
 void USART0_Init (void)
 {
-	// set clock divider
-	//	#undef BAUD
-	//	#define BAUD 1000000
-	//#	#define BAUD 1000000
-	//	#include <util/setbaud.h>
-	//	UBRR0H = UBRRH_VALUE;
-	//	UBRR0L = UBRRL_VALUE;
+	// set baudrate
+		#undef BAUD
+		#define BAUD 500000
+		#include <util/setbaud.h>
+		UBRR0H = UBRRH_VALUE;
+		UBRR0L = UBRRL_VALUE;
 
 
 	DDRD |= (1<<PORTD2);
 	PORTD &= ~(1<<PORTD2);
 
-	UBRR0H = 0;
-	UBRR0L = 4;//500000
-	//UBRR0L = 21;//115200
 
 	//#if USE_2X
 	UCSR0A |= (1 << U2X0);	// enable double speed operation
@@ -90,12 +86,9 @@ void USART0_Init (void)
 	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);
 	UCSR0B &= ~(1 << UCSZ02);
 
+	UCSR0B |= (1 << RXEN0)|(1 << TXEN0); //enable send and receive
 
-
-	UCSR0B |= (1 << RXEN0);
-	UCSR0B &= ~(1 << TXEN0);
-	//	UCSR0B |= (1 << RXEN0) | (1 << TXEN0);
-	UCSR0B |= (1 << RXCIE0);
+	UCSR0B |= (1 << RXCIE0); //enable receive interrup
 
 	rxhead0 = rxtail0 = rxbuf0;
 
