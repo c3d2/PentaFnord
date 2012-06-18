@@ -55,7 +55,7 @@ void pwm_init(void);
 void pwm_poll(void);
 void pwm_poll_fading(void);
 
-void pwm_fade_rgb(struct rgb_color_t *color, uint8_t step, uint8_t delay);
+void pwm_fade_rgb(const struct rgb_color_t *color, uint8_t step, uint8_t delay);
 
 /* return true if fading process is complete */
 bool pwm_target_reached(void);

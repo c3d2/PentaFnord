@@ -131,7 +131,7 @@ register uint8_t timeslots_read asm("r3");	/* current read head in 'slot' array 
 void update_pwm_timeslots(struct rgb_color_t *target);
 void update_rgb(uint8_t c);
 void enqueue_timeslot(uint8_t mask, uint16_t top);
-struct timeslot_t *dequeue_timeslot();
+struct timeslot_t *dequeue_timeslot(void);
 void update_last_timeslot(uint8_t mask);
 uint8_t timeslots_fill(void);
 
@@ -442,7 +442,7 @@ static void compute_speed(uint8_t step, uint8_t delay)
 	}
 }
 
-void pwm_fade_rgb(struct rgb_color_t *color, uint8_t step, uint8_t delay)
+void pwm_fade_rgb(const struct rgb_color_t *color, uint8_t step, uint8_t delay)
 {
 
 	/* set target color */

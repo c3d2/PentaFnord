@@ -52,6 +52,38 @@ volatile uint8_t count;
 uint8_t red = 0;
 uint8_t green = 0;
 
+
+
+/* some colors*/
+const struct rgb_color_t PROGMEM palettecolors  [] = {
+	{.rgbwu={ 0x00, 0x00, 0x00, 0x00, 0x00}},
+	{.rgbwu={ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}},
+	{.rgbwu={ 0xFF, 0xFF, 0xFF, 0xFF, 0x00}},
+	{.rgbwu={ 0xFF, 0x00, 0x00, 0x00, 0x00}},
+	{.rgbwu={ 0x00, 0xFF, 0x00, 0x00, 0x00}},
+	{.rgbwu={ 0x00, 0x00, 0xFF, 0x00, 0x00}},
+	{.rgbwu={ 0x01, 0x01, 0x01, 0x01, 0x00}},
+	{.rgbwu={ 0x00, 0x00, 0xFF, 0x00, 0x00}},
+	{.rgbwu={ 0x08, 0x00, 0xFF, 0x00, 0x00}},
+	{.rgbwu={ 0x07, 0x00, 0xFF, 0x00, 0x00}},
+	{.rgbwu={ 0x00, 0x00, 0x00, 0x00, 0xFF}}
+};
+
+#define pal_color(X) ( palettecolors + X)
+
+#define P_BLACK    pal_color(0)
+#define P_MAXALL   pal_color(1)
+#define P_MAXWHITE pal_color(2)
+#define P_MAXRED   pal_color(3)
+#define P_MAXGREEN pal_color(4)
+#define P_MAXBLUE  pal_color(5)
+#define P_STRANGE  pal_color(6)
+#define P_BEIGE    pal_color(7)
+#define P_AQUA     pal_color(8)
+#define P_ULTRAV   pal_color(9)
+
+
+
 int main(void)
 {
 	// some people think this makes a difference
@@ -61,9 +93,6 @@ int main(void)
 	/** main function
 	 */
 
-//      G_mode = STARTMODE;
-//      G_trigger = INITIAL_TRIGGER;
-
 	pwm_init();
 	timer_init();
 	button_init();
@@ -72,63 +101,37 @@ int main(void)
 	/* enable interrupts globally */
 	sei();
 
-	//static  struct rgb_color_t col_antiquewhite PROGMEM = {0xFA,0xEB,0xD7};
-	//static  struct rgb_color_t col_antiquewhite PROGMEM ={0xFA,0xEB,0xD7};
-	//static  struct rgb_color_t col_purple PROGMEM = {0x80,0x00,0x80};
-	//static  struct rgb_color_t col_darksalmon = {0xE9,0x96,0x7A};
-
-	//pwm_fade_rgb(&((static struct rgb_color_t){0xFF,0xFF,0xFF}), 1,1);
-	//pwm_fade_rgb(&((struct rgb_color_t){0xFF,0xFF,0xFF}), 1,4);
-	//pwm_fade_rgb(&col_darksalmon, 1,10);
-	//  pwm_fade(0x80,0x80,0x80,1,5);
-
-//    pwm_fade_rgb(&COL_LIME, 1,1);
-//    pwm_fade_rgb(&COL_CHARTREUSE, 1,1);
-	//pwm_set_color(&((struct rgb_color_t){0xFF,0xF0,0x80,0x00,0x00}));
-	//   pwm_fade_rgb(&((struct rgb_color_t){0xFF,0x20,0x20,0x80,0x00}),10,100);
-	//pwm_set_color(&((struct rgb_color_t){0x00,0x00,0x20,0x00,0xFF}));
-
-	pwm_fade_rgb(&((struct rgb_color_t) {
-		       0x01, 0x01, 0x01, 0x01, 0x00}), 1, 0);
+	pwm_fade_rgb(pal_color(6), 1, 0);
 	while (1) {
 
 		pwm_poll();
 
 		if (btn_state(BTNST_SUP, BTN_UP)) {
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0xFF, 0x00, 0x00, 0x00, 0x00}), 2, 1);
+			pwm_fade_rgb(P_BLACK, 2, 1);
 			button_clear(BTN_UP);
-
 		}
-
 		if (btn_state(BTNST_SUP, BTN_RIGHT)) {
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0x00, 0xFF, 0x00, 0x00, 0x00}), 2, 1);
+			pwm_fade_rgb(P_MAXRED, 2, 1);
 			button_clear(BTN_RIGHT);
 		}
 		if (btn_state(BTNST_SUP, BTN_DOWN)) {
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0x00, 0x00, 0xFF, 0x00, 0x00}), 2, 1);
+			pwm_fade_rgb(P_MAXGREEN, 2, 1);
 			button_clear(BTN_DOWN);
 		}
 		if (btn_state(BTNST_SUP, BTN_LEFT)) {
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0x00, 0x00, 0x00, 0xFF, 0x00}), 2, 1);
+			pwm_fade_rgb(P_MAXBLUE, 2, 1);
 			button_clear(BTN_LEFT);
 		}
 		if (btn_state(BTNST_LUP, BTN_UP)) {
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0x00, 0x00, 0x00, 0x00, 0xFF}), 2, 1);
+			pwm_fade_rgb(P_ULTRAV, 2, 1);
 			button_clear(BTN_UP);
 		}
 		if (btn_state(BTNST_LUP, BTN_CENTER)) {
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0x00, 0x00, 0x00, 0x00, 0x00}), 2, 1);
+			pwm_fade_rgb(P_BLACK, 2, 1);
 			button_clear(BTN_CENTER);
 		}
 		if (btn_state(BTNST_SUP, BTN_CENTER)) {
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0xFF, 0xFF, 0xFF, 0xFF, 0xFF}), 2, 1);
+			pwm_fade_rgb(P_MAXALL, 2, 1);
 			button_clear(BTN_CENTER);
 		}
 		pwm_poll();
@@ -136,36 +139,28 @@ int main(void)
 
 		uint8_t data = 0;
 		if (USART0_Getc_nb(&data)) {
-			//USART0_putc(~0x55);
-			if (data == 0x30) {
-				pwm_fade_rgb(&((struct rgb_color_t) {
-					       0xFF, 0xFF, 0xFF, 0xFF, 0xFF}),
-					     0xFF, 1);
-				USART0_putc('w');
-			}
-			if (data == 0x31) {
-				pwm_fade_rgb(&((struct rgb_color_t) {
-					       0xFF, 0x00, 0x00, 0x00, 0x00}),
-					     0xFF, 1);
-				USART0_putc('r');
-			}
-			if (data == 0x32) {
-				pwm_fade_rgb(&((struct rgb_color_t) {
-					       0x00, 0xFF, 0x00, 0x00, 0x00}),
-					     0xFF, 1);
-				USART0_putc('g');
-			}
-			if (data == 0x33) {
-				pwm_fade_rgb(&((struct rgb_color_t) {
-					       0x00, 0x00, 0xFF, 0x00, 0x00}),
-					     0xFF, 1);
-				USART0_putc('b');
-			}
-			if (data == 0x20) {
-				pwm_fade_rgb(&((struct rgb_color_t) {
-					       0x00, 0x00, 0x00, 0x00, 0x00}),
-					     0xFF, 1);
-				USART0_putc('0');
+			switch(data){
+				case 0x30: 
+					pwm_fade_rgb(pal_color(0), 0xFF, 1);
+					USART0_putc('w');
+					break;
+				case  0x31 :
+					pwm_fade_rgb(pal_color(1), 0xFF, 1);
+					USART0_putc('r');
+
+					break;
+				case  0x32 :
+					pwm_fade_rgb(pal_color(2), 0xFF, 1);
+					USART0_putc('g');
+					break;
+				case  0x33 :
+					pwm_fade_rgb(pal_color(3), 0xFF, 1);
+					USART0_putc('b');
+					break;
+				case  0x20 :
+					pwm_fade_rgb(pal_color(4), 0xFF, 1);
+					USART0_putc('0');
+					break;
 			}
 		}
 
@@ -176,4 +171,5 @@ int main(void)
 	}
 
 	return 0;
-}				// END main(void)
+}// END main(void)
+
