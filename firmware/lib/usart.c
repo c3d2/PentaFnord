@@ -62,7 +62,7 @@ void USART0_Init (void)
 {
 	// set baudrate
 		#undef BAUD
-		#define BAUD 500000
+		#define BAUD 9600
 		#include <util/setbaud.h><util/setbaud.h>
 		UBRR0H = UBRRH_VALUE;
 		UBRR0L = UBRRL_VALUE;
@@ -99,6 +99,9 @@ void USART0_Init (void)
 void USART0_putc (char c)
 {
 	PORTD |= (1<<PORTD2);
+
+	for (int i; i<100; i++){
+	}
 	loop_until_bit_is_set(UCSR0A, UDRE0);
 	UDR0 = c;
 	PORTD &= ~(1<<PORTD2);

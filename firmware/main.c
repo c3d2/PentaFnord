@@ -140,34 +140,34 @@ int main(void)
 				pwm_fade_rgb(&((struct rgb_color_t) {
 					       0xFF, 0xFF, 0xFF, 0xFF, 0xFF}),
 					     0xFF, 1);
-				USART0_putc('w');
+				//USART0_putc('w');
 			}
 			if (data == 0x31) {
 				pwm_fade_rgb(&((struct rgb_color_t) {
 					       0xFF, 0x00, 0x00, 0x00, 0x00}),
 					     0xFF, 1);
-				USART0_putc('r');
+				//USART0_putc('r');
 			}
 			if (data == 0x32) {
 				pwm_fade_rgb(&((struct rgb_color_t) {
 					       0x00, 0xFF, 0x00, 0x00, 0x00}),
 					     0xFF, 1);
-				USART0_putc('g');
+				//USART0_putc('g');
 			}
 			if (data == 0x33) {
 				pwm_fade_rgb(&((struct rgb_color_t) {
 					       0x00, 0x00, 0xFF, 0x00, 0x00}),
 					     0xFF, 1);
-				USART0_putc('b');
+				//USART0_putc('b');
 			}
 			if (data == 0x20) {
 				pwm_fade_rgb(&((struct rgb_color_t) {
 					       0x00, 0x00, 0x00, 0x00, 0x00}),
 					     0xFF, 1);
-				USART0_putc('0');
+				//USART0_putc('0');
 			}
 		}
-
+	//USART0_putc('1');
 		pwm_poll();
 		button_poll();
 		pwm_poll();
