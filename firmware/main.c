@@ -43,6 +43,7 @@
 #include "lib/color.h"
 #include "lib/timer.h"
 #include "lib/common.h"
+#include "lib/usart.h"
 
 //void mode_poll();
 
