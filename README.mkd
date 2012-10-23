@@ -136,7 +136,9 @@ board has to be tweaked and some minor hardware hacks are required.
 
 
 
-eingebaut in r,g nix, in blau 2*6,8 Ohm0805er in serie
+eingebaut in r,g nix, in blau 2*6,8 Ohm0805er in serie bzw 15Ohm 1206er
+
+
 Ströme: (bei 20V)
 
 Ohne _LEDs 25mA
@@ -208,10 +210,29 @@ UV only 45 mA
 
 </table>
 
+### SMD LED Board 
 
+WHITE:NICHIA_NSSL157T-H3  20 V
 
+IF 150mA
 
+gemessen 150mA 16.1 V
 
+R = U/I = 3.9V/0.15 A = 26 Ohm --> 27 Ohm eingebaut
+gemessenen Platinentemp 70°C, bei R_W 80°C (20.1 Volt mit Vorwiderstand, bei 132mA)
+
+UV: Lumitronix 14301 Top SMD  LED UV 120° 3.1V
+IF 30mA, 3.6V 20mA dürften ausreichen, nicht viel dunkler
+ gemessen....
+
+20.5mA bei  16.13V
+30 mA bei 16.57V
+24mA bei 16.3V
+
+R= U/I = 3.7V/0.024A = 154,1 Ohm --> 150 Ohm
+bei18V 16 mA, bei 20V 26  bei 21v 30mA
+
+UV 4 hat einen Treffer, geht bei niedriger spannung als erstes aus --> Tauschen!
 
 
 
