@@ -1,32 +1,27 @@
-PentaFnord
+
 ============
 
-General Info: This is a project under development. So please treat the hardware design as non functional until proven otherwise.
+<b>General Info: This is a project under development. So please treat the design as non functional until proven otherwise.</b>
+
+PentaFnord is designed to provide a cheap moodlight with RGB, white and ultraviolet illumination.
+A variety of configuration alternatives are provided to match your individual sweet spot between cost, functionality and quality of LEDs to be used.
 
 Acknowledgements: PentaFnord was inspired by the <a href="http://www.lochraster.org/fnordlicht/">FnordLicht</a> project. 
 
 License
 -------
-All software is licensed under the Gnu General Public License Version 3 (GPLv3).
-
-The hardware design is licensed under 
+All software is licensed under the Gnu General Public License Version 3 (GPLv3). The hardware design is licensed under 
  under a [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-nc-sa/3.0/).
 
 
+Bill of Materials and Assembly Alternatives
+===========================================
 
-Design Considerations
----------------------
-As cheap as cheap can. (ToDo) Cave: Lots of optional or alternative components!
+##PentaFnord Control Board (PFCB)
+BOM is valid for versions 0.9 and 0.91 of the PFCB. Version 0.91 just provides some minor superficial improvements but is in principle identical to 0.9.
+![placement schema for PFCB 0.91](/c3d2/PentaFnord/raw/master/img/PFCB_0.91_placement.png)
 
 
-Partlists and Assembly Alternatives
-===================================
-
-##PentaFnord Control Board - Version 0.9 (PFCB_0.9)
-
-TODO Purpose and some general description
-
-###Parts List - PFCB_0.9
 
 TODO list all the parts!
 
@@ -94,7 +89,7 @@ FET LED BOard: BSS123
 
 This is the __Experimental Development and Debug Configuration__ and is the first board that was ever built. There is currently only this one board built so far: PFCB#001. Lots of the annotations in the "Bugs Encountered" section gut input from this unit.
 
-![board001](/alxlo/PentaFnord/raw/master/img/board001.jpg)
+![board001](/c3d2/PentaFnord/raw/master/img/board001.jpg)
 
 
 ##PentaFnord LED Board - Version 0.9 (PFLB_0.9)
