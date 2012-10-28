@@ -188,7 +188,7 @@ BOM is valid for versions 0.9 and 0.91 of the PFCB. Version 0.91 just provides s
 <tr>
 <td>SW1</td>
 <td>MCMT5-F-V</td>
-<td>OPTIONAL Use only if XR is not used.</td>
+<td>OPTIONAL For experimentalpurposes. Use only if XR is not used.</td>
 <td>Farnell 1316987</td>
 <td>&#8364; 1.71</td>
 </tr>
@@ -201,13 +201,76 @@ BOM is valid for versions 0.9 and 0.91 of the PFCB. Version 0.91 just provides s
 <td>&#8364; 1,90</td>
 </tr>
 
-
 </table>
 
+If you get the PCBs cheap for about &#8364; 1 in a bigger production run, an average PFCB should cost about &#8364; 5.40 to &#8364; 7.65, depending on the configuration. For installations with a large number
+
+
+##PentaFnord LED Board - Version 0.9 (PFLB_0.9)
+BOM is valid for version 0.91 of the PFCB. Version 0.9 had some errors.
+
+![placement schema for PFCB 0.91](/c3d2/PentaFnord/raw/master/img/PFLB_0.91_placement.png)
+
+<table rules="rows">
+<tr>
+<th>Part Number</th>
+<th>Type/Value</th>
+<th>Comment</th>
+<th>Distributor/Price</th>
+<th>Total Price</th>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>&#8364; </td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>&#8364; </td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>&#8364; </td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>&#8364; </td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>&#8364; </td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>&#8364; </td>
+</tr>
 
 
 
-
+</table>
 
 
 FET LED BOard: BSS123
@@ -268,9 +331,8 @@ This is the __Experimental Development and Debug Configuration__ and is the firs
 
 
 
-##PentaFnord LED Board - Version 0.9 (PFLB_0.9)
 
-TODO Purpose and some general description
+
 
 ###Parts List - PFLB_0.9
 
