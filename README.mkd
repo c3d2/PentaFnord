@@ -1,24 +1,9 @@
 PentaFnord
 ============
 
-
-
-Project Status
---------------
-
 General Info: This is a project under development. So please treat the hardware design as non functional until proven otherwise.
 
-* 2012/04/25 Assembly of board001 completed, trying to get it working \o/
-
-* 2012/04/10 Finished boards have arrived
-
-* 2012/02/27 After the first production attempt of the board has been canceled for some reasons we are ready to go for panel production now. In the meanwhile a power led module that is fully interchangeable with the normal led module and can drive up to 5 led channels with up to 700mA has been added. And we created some other usefull gadgets as well! Check out [Seb's repository](https://github.com/sebseb7/eagle/tree/master/4CHLED) to find a power injector for the haqbus, a capacitor module to stabilize power supply, and an optically insulated data injector complete with FTDI USB to UART bridge.  
-
-* 2012/02/17 A team of highly skilled monkeys from C3D2 started the [specification of the __haqbus__](https://github.com/c3d2/haqbus) which will be the protocoll talked by the RS485 interface of the PentaFnord and some other devices.
-
-* 2012/01/27 Finally found time to write a proper Readme.mkd (.this)
-
-* 2012/01/25 Hardware design and layout of the v0.9 prototype pcbs are finished. We are waiting for the end of the Chinese New Year hollidays to send the designs to actual production.
+Acknowledgements: PentaFnord was inspired by the <a href="http://www.lochraster.org/fnordlicht/">FnordLicht</a> project. 
 
 License
 -------
@@ -27,10 +12,7 @@ All software is licensed under the Gnu General Public License Version 3 (GPLv3).
 The hardware design is licensed under 
  under a [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-nc-sa/3.0/).
 
-Acknowledgements
-----------------
 
-PentaFnord was inspired by FnordLicht. 
 
 Design Considerations
 ---------------------
