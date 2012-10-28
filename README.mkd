@@ -33,7 +33,7 @@ BOM is valid for versions 0.9 and 0.91 of the PFCB. Version 0.91 just provides s
 
 <tr>
 <td>PCB</td>
-<td>PCB Version 0.91</td>
+<td>PFCB Version 0.91</td>
 <td>Your pricetag may vary.</td>
 <td>MakePCB, OshPark, &#8364; 1.00 to 5.00</td>
 <td>&#8364; 1.00</td>
@@ -221,59 +221,138 @@ BOM is valid for version 0.91 of the PFCB. Version 0.9 had some errors.
 </tr>
 
 <tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>&#8364; </td>
+<td>PCB</td>
+<td>PFLB Version 0.91</td>
+<td>Your pricetag may vary.</td>
+<td>MakePCB, OshPark, &#8364; 1.00 to 3.50</td>
+<td>&#8364; 1.00</td>
 </tr>
 
 <tr>
+<td>RD1-RD8</td>
+<td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSHR5111P.pdf'>OSHR 5111 P</a></td>
 <td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>&#8364; </td>
+<td><a href='http://www.soselectronic.com/?str=371&artnum=67726'>SOS electronic</a>&#8364; 0.31 each</td>
+<td>&#8364; 2.48</td>
 </tr>
 
 <tr>
+<td>G1-G5</td>
+<td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSPG5111P.pdf'>OSPG 5111P</a></td>
 <td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>&#8364; </td>
+<td><a href='http://www.soselectronic.com/?str=371&artnum=101068'>SOS electronic</a>&#8364; 0.39 each</td>
+<td>&#8364; 1.95</td>
 </tr>
 
 <tr>
+<td>B1-B5</td>
+<td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSUB5111P.pdf'>OSUB 5111 P</a></td>
 <td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>&#8364; </td>
+<td><a href='http://www.soselectronic.com/?str=371&artnum=101067'>SOS electronic</a>&#8364; 0.35 each</td>
+<td>&#8364; 1.75</td>
 </tr>
 
 <tr>
+<td rowspan="2">W1-W5</td>
+<td><a href='http://www.soselectronic.com/a_info/resource/d/OptoSupply/OSPW5111P.pdf'>OSPW 5111 P</a></td>
 <td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>&#8364; </td>
+<td><a href='http://www.soselectronic.com/?str=371&artnum=101065'>SOS electronic</a>&#8364; 0.36 each</td>
+<td>&#8364; 1.80</td>
 </tr>
 
 <tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>&#8364; </td>
+<td>Nichia NSSL157T-H3</td>
+<td>Very nice warm white light.</td>
+<td>&#8364; 49.00 for 100</td>
+<td>&#8364; 2.45</td>
 </tr>
 
 
+<tr>
+<td rowspan="2">U1-U5</td>
+<td>UV 2000mcd 20-30mA 3,2-3,4 V</td>
+<td></td>
+<td>led-store.de<br /><a href='http://www.shop-014.de/michawi-p868h34s157-50-superhelle-UV-LED.html'>these?</a> &#8364; 0.19 each</td>
+<td>&#8364; 0.95</td>
+</tr>
+
+<tr>
+<td>Lumitronix 14301</td>
+<td>IMHO nicer UV</td>
+<td>http://www.leds.de .46 each (from 50 and more)</td>
+<td>&#8364; 2.30</td>
+</tr>
+
+
+
+
+<tr>
+<td>Q1-Q5</td>
+<td>BSS 123 SMD</td>
+<td></td>
+<td>Reichelt, &#8364; 0.05 each</td>
+<td>&#8364; 0.25</td>
+</tr>
+
+<tr>
+<td>R_R</td>
+<td>0 &#8486;</td>
+<td></td>
+<td></td>
+<td>&#8364; 0.00</td>
+</tr>
+
+<tr>
+<td>R_G</td>
+<td>0 &#8486;</td>
+<td></td>
+<td></td>
+<td>&#8364; 0.00</td>
+</tr>
+
+<tr>
+<td>R_B</td>
+<td>15&#8486; 1206</td>
+<td></td>
+<td></td>
+<td>&#8364; 0.03</td>
+</tr>
+
+<tr>
+<td>R_W</td>
+<td>33&#8486; / 27&#8486; 1206 </td>
+<td>Use 27&#8486; for Nichia SMD LEDs</td>
+<td></td>
+<td>&#8364; 0.03</td>
+</tr>
+
+<tr>
+<td>R_U</td>
+<td>150&#8486; 1206 </td>
+<td></td>
+<td></td>
+<td>&#8364; 0.03</td>
+</tr>
+
+<tr>
+<td>J1T</td>
+<td>female pinheader FE07-1</td>
+<td></td>
+<td></td>
+<td>&#8364; 0.15</td>
+</tr>
+
+<tr>
+<td>J2T</td>
+<td>female pinheader FE06-1</td>
+<td></td>
+<td></td>
+<td>&#8364; 0.15</td>
+</tr>
 
 </table>
 
-
-FET LED BOard: BSS123
+This gives you a price per LED module from &#8364; 10.30 to &#8364; 12.30. You might reduce the price by using other LEDs.
 
 ###Assembly Considerations - PFCB_0.9
 
