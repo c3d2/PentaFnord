@@ -11929,9 +11929,9 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <part name="B_R" library="wirepad" deviceset="WIREPAD" device="SMD1,27-254" value=""/>
 <part name="A_R" library="wirepad" deviceset="WIREPAD" device="SMD1,27-254" value=""/>
 <part name="GND_L" library="wirepad" deviceset="WIREPAD" device="SMD2,54-5,08" value=""/>
-<part name="B_L" library="wirepad" deviceset="WIREPAD" device="SMD1,27-254" value=""/>
+<part name="B_L" library="wirepad" deviceset="WIREPAD" device="SMD2,54-5,08" value=""/>
 <part name="+18_L" library="wirepad" deviceset="WIREPAD" device="SMD2,54-5,08" value=""/>
-<part name="A_L" library="wirepad" deviceset="WIREPAD" device="SMD1,27-254" value=""/>
+<part name="A_L" library="wirepad" deviceset="WIREPAD" device="SMD2,54-5,08" value=""/>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
 <part name="P+10" library="supply1" deviceset="VCC" device=""/>
 <part name="C2" library="SparkFun" deviceset="CAP" device="0805" value="1u"/>
@@ -11982,8 +11982,8 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <part name="C7" library="SparkFun" deviceset="CAP" device="0805" value="100n"/>
 <part name="PAD4" library="wirepad" deviceset="WIREPAD" device="SMD1,27-254"/>
 <part name="C3" library="rcl" deviceset="CPOL-EU" device="SMCD" value="10uF/25V"/>
-<part name="D_L" library="wirepad" deviceset="WIREPAD" device="SMD1,27-254"/>
-<part name="C_L" library="wirepad" deviceset="WIREPAD" device="SMD1,27-254"/>
+<part name="D_L" library="wirepad" deviceset="WIREPAD" device="SMD2,54-5,08"/>
+<part name="C_L" library="wirepad" deviceset="WIREPAD" device="SMD2,54-5,08"/>
 <part name="C" library="wirepad" deviceset="WIREPAD" device="SMD1,27-254"/>
 <part name="D" library="wirepad" deviceset="WIREPAD" device="SMD1,27-254"/>
 <part name="TXD" library="wirepad" deviceset="WIREPAD" device="SMD2,54-5,08" value=""/>
@@ -12051,6 +12051,7 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <part name="Q3" library="transistor-small-signal" deviceset="BSS123" device="" value="BSS138"/>
 <part name="Q4" library="transistor-small-signal" deviceset="BSS123" device="" value="BSS138"/>
 <part name="Q5" library="transistor-small-signal" deviceset="BSS123" device="" value="BSS138"/>
+<part name="P+2" library="supply1" deviceset="VCC" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -12212,6 +12213,7 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <attribute name="NAME" x="-8.763" y="48.9458" size="1.778" layer="95" rot="MR180"/>
 <attribute name="VALUE" x="-1.778" y="46.863" size="1.778" layer="96" rot="MR270"/>
 </instance>
+<instance part="P+2" gate="VCC" x="182.88" y="132.08"/>
 </instances>
 <busses>
 </busses>
@@ -12266,6 +12268,13 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <wire x1="-91.44" y1="43.18" x2="-101.6" y2="43.18" width="0.1524" layer="91"/>
 <junction x="-91.44" y="43.18"/>
 </segment>
+<segment>
+<pinref part="JP3A" gate="A" pin="2"/>
+<wire x1="175.26" y1="124.46" x2="182.88" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="182.88" y1="124.46" x2="182.88" y2="129.54" width="0.1524" layer="91"/>
+<pinref part="P+2" gate="VCC" pin="VCC"/>
+<label x="185.42" y="127" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="SCK" class="0">
 <segment>
@@ -12277,6 +12286,7 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <segment>
 <wire x1="162.56" y1="121.92" x2="167.64" y2="121.92" width="0.1524" layer="91"/>
 <pinref part="JP3A" gate="A" pin="3"/>
+<label x="157.48" y="121.92" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="MISO" class="0">
@@ -12664,6 +12674,7 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <segment>
 <wire x1="-25.4" y1="45.72" x2="-27.94" y2="45.72" width="0.1524" layer="91"/>
 <pinref part="IC1" gate="G$1" pin="PC3(ADC3)"/>
+<wire x1="-25.4" y1="45.72" x2="-17.78" y2="45.72" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <wire x1="157.48" y1="53.34" x2="152.4" y2="53.34" width="0.1524" layer="91"/>
@@ -12765,6 +12776,11 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <wire x1="195.58" y1="50.8" x2="200.66" y2="50.8" width="0.1524" layer="91"/>
 <label x="200.66" y="50.8" size="1.778" layer="95"/>
 <pinref part="SW1" gate="G$1" pin="DUMMY"/>
+</segment>
+<segment>
+<pinref part="IC1" gate="G$1" pin="PB1(OC1A)"/>
+<wire x1="-25.4" y1="5.08" x2="-15.24" y2="5.08" width="0.1524" layer="91"/>
+<wire x1="-15.24" y1="5.08" x2="-15.24" y2="2.54" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$55" class="0">
