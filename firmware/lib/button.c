@@ -72,73 +72,71 @@ void button_clear(uint8_t button){
 }
 
 
-void stateswitch(uint8_t i ){
-	switch(btnstates[i])
-	{
-		case BTNST_NTRL: //NEUTRAL
-			if (curinput & (1<<i)){ //button down
-				btncounters[i] = 0;
-				btnstates[i] = BTNST_DBNC;
+void stateswitch(uint8_t i) {
+	switch (btnstates[i]) {
+	case BTNST_NTRL: //NEUTRAL
+		if (curinput & (1 << i)) { //button down
+			btncounters[i] = 0;
+			btnstates[i] = BTNST_DBNC;
+		}
+		break;
+	case BTNST_DBNC: //intermediate state, check if button is still pressed to debounce
+		btnstates[i] = (curinput & (1 << i)) ? BTNST_SDN : BTNST_NTRL;
+		(btncounters[i])++;
+		break;
+	case BTNST_SDN: //is shortpressed and still held down
+		if (curinput & (1<<i)){
+			btncounters[i]++;
+			if (btncounters[i] > BTN_T_LONGFACT){ //500ms held
+				btnstates[i] = BTNST_LDN;
 			}
-			break;
-		//intermediate state, check if button is still pressed to debounce
-		case BTNST_DBNC: 
-			btnstates[i] = (curinput & (1<<i))? BTNST_SDN: BTNST_NTRL;
-			(btncounters[i])++;
-			break;
-
-		case BTNST_SDN: //is shortpressed and still held down
-			if (curinput & (1<<i)){
-				btncounters[i]++;
-				if (btncounters[i] > BTN_T_LONGFACT){ //500ms held
-					btnstates[i] = BTNST_LDN;
-				}
-			} else { //button was released
-				btnstates[i] = BTNST_SUP;
-				//signal shortclick
-			}
-			break;
-		case BTNST_LDN: //is longpressed and still held down
-			if (!(curinput & (1<<i))){
-				//button was released
-				btnstates[i] = BTNST_LUP; //signal longpress
-			}
-			break;
-		case BTNST_SUP: //Button came up after being pressed shortly
-			if ((curinput & (1<<i))){
-				//button was pressed again or is bouncing after release
-				btnstates[i] = BTNST_SUPDBNC; //going in special debounce
-				btncounters[i] = 0;
-			}
-			break;
-		case BTNST_LUP: //Button came up after being pressed for a long time
-			if ((curinput & (1<<i))){
-				//button was pressed again or is bouncing after release
-				btnstates[i] = BTNST_LUPDBNC; //going in special debounce
-				btncounters[i] = 0;
-			}
-			break;
-		case BTNST_SUPDBNC: //Button was pressed again after beeing short pressed(or is bouncing)
-			if ((curinput & (1<<i))){
-				//button is still pressed --> going to shortpress
-				btncounters[i]++;
-				btnstates[i] = BTNST_SDN; //starting over from short pressed
-			} else {
-				btnstates[i] = BTNST_SUP; //nope, it was bouncing, back to old state
-			}
-			break;
-		case BTNST_LUPDBNC: //Button was pressed again after beeing short pressed(or is bouncing)
-			if ((curinput & (1<<i))){
-				//button is still pressed --> going to shortpress
-				btncounters[i]++;
-				btnstates[i] = BTNST_SDN; //starting over from short pressed
-			} else {
-				btnstates[i] = BTNST_LUP; //nope, it was bouncing, back to old state
-			}
-			break;
-		default: //curently catches nothing
-			// do nothing yet
-			;
+		} else { //button was released
+			btnstates[i] = BTNST_SUP;
+			//signal shortclick
+		}
+		break;
+	case BTNST_LDN: //is longpressed and still held down
+		if (!(curinput & (1<<i))){
+			//button was released
+			btnstates[i] = BTNST_LUP; //signal longpress
+		}
+		break;
+	case BTNST_SUP: //Button came up after being pressed shortly
+		if ((curinput & (1 << i))) {
+			//button was pressed again or is bouncing after release
+			btnstates[i] = BTNST_SUPDBNC; //going in special debounce
+			btncounters[i] = 0;
+		}
+		break;
+	case BTNST_LUP: //Button came up after being pressed for a long time
+		if ((curinput & (1 << i))) {
+			//button was pressed again or is bouncing after release
+			btnstates[i] = BTNST_LUPDBNC; //going in special debounce
+			btncounters[i] = 0;
+		}
+		break;
+	case BTNST_SUPDBNC: //Button was pressed again after beeing short pressed(or is bouncing)
+		if ((curinput & (1 << i))) {
+			//button is still pressed --> going to shortpress
+			btncounters[i]++;
+			btnstates[i] = BTNST_SDN; //starting over from short pressed
+		} else {
+			btnstates[i] = BTNST_SUP; //nope, it was bouncing, back to old state
+		}
+		break;
+	case BTNST_LUPDBNC: //Button was pressed again after beeing short pressed(or is bouncing)
+		if ((curinput & (1 << i))) {
+			//button is still pressed --> going to shortpress
+			btncounters[i]++;
+			btnstates[i] = BTNST_SDN; //starting over from short pressed
+		} else {
+			btnstates[i] = BTNST_LUP; //nope, it was bouncing, back to old state
+		}
+		break;
+	default: //curently catches nothing
+		// do nothing yet
+		;
+		break;
 	} //end switch
 	timer_set(&btntimers[i], BTN_T_DEBOUNCE);
 }
