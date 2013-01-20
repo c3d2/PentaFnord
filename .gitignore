@@ -4,5 +4,6 @@
 *.pro
 # ignore editor backup files
 *.???~
-
+*~
+*.*~
 
