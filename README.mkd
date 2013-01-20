@@ -203,7 +203,9 @@ BOM is valid for versions 0.9 and 0.91 of the PFCB. Version 0.91 just provides s
 
 </table>
 
-If you get the PCBs cheap for about &#8364; 1 in a bigger production run, an average PFCB should cost about &#8364; 5.40 to &#8364; 7.65, depending on the configuration. For installations with a large number
+If you get the PCBs cheap for about &#8364; 1 in a bigger production run, an average PFCB should cost about &#8364; 5.40 to &#8364; 7.65, depending on the configuration.
+
+For installations with several modules in a fixed configuartion (e. g. a lightbar with 10 modules) [a striped down version](https://github.com/c3d2/PentaFnord/tree/master/hardware/ledbarhack)  of the PCB with big solderpads for Vcc, GND and bus signal lines can be used to reduce cost further (save on RJ45 connectors and MAX487 driver circuits).
 
 
 ##PentaFnord LED Board - Version 0.9 (PFLB_0.9)
