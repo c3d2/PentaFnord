@@ -33,21 +33,21 @@ volatile static uint8_t *volatile rxhead0, *volatile rxtail0;
 //volatile uint8_t xon = 0;
 
 
-ISR (USART_RX_vect)
-{
+ISR (USART_RX_vect) {
 	UCSR0B &= ~(1 << RXCIE0);
 	asm volatile("sei");
 
 	int diff;
 	uint8_t c;
-	c=UDR0;
+	c = UDR0;
 	diff = rxhead0 - rxtail0;
-	if (diff < 0) diff += UART_RXBUFSIZE;
-	if (diff < UART_RXBUFSIZE -1)
-	{
+	if (diff < 0)
+		diff += UART_RXBUFSIZE;
+	if (diff < UART_RXBUFSIZE - 1) {
 		*rxhead0 = c;
 		++rxhead0;
-		if (rxhead0 == (rxbuf0 + UART_RXBUFSIZE)) rxhead0 = rxbuf0;
+		if (rxhead0 == (rxbuf0 + UART_RXBUFSIZE))
+			rxhead0 = rxbuf0;
 //		if((diff > 100)&&(xon==0))
 //		{
 //			xon=1;
@@ -57,36 +57,32 @@ ISR (USART_RX_vect)
 	UCSR0B |= (1 << RXCIE0);
 }
 
-
-void USART0_Init (void)
-{
+void USART0_Init(void) {
 	// set baudrate
-		#undef BAUD
-		#define BAUD 9600
-		#include <util/setbaud.h><util/setbaud.h>
-		UBRR0H = UBRRH_VALUE;
-		UBRR0L = UBRRL_VALUE;
+#define 	BAUD_TOL   4
+#undef 		BAUD
+#define 	BAUD 115200
+#include <util/setbaud.h>
+	UBRR0H = UBRRH_VALUE;
+	UBRR0L = UBRRL_VALUE;
 
-
+#if USE_2X
+	UCSR0A |= (1 << U2X0); // enable double speed operation
+#else
+	UCSR0A &= ~(1 << U2X0); // disable double speed operation
+#endif
 	DDRD |= (1<<PORTD2);
 	PORTD &= ~(1<<PORTD2);
 
-
-	//#if USE_2X
-	UCSR0A |= (1 << U2X0);	// enable double speed operation
-	//#else
-	//	UCSR0A &= ~(1 << U2X0);	// disable double speed operation
-	//#endif
-
-
 	// flush receive buffer
-	while ( UCSR0A & (1 << RXC0) ) UDR0;
+	while (UCSR0A & (1 << RXC0))
+		UDR0;
 
 	// set 8N1
 	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);
 	UCSR0B &= ~(1 << UCSZ02);
 
-	UCSR0B |= (1 << RXEN0)|(1 << TXEN0); //enable send and receive
+	UCSR0B |= (1 << RXEN0) | (1 << TXEN0); //enable send and receive
 
 	UCSR0B |= (1 << RXCIE0); //enable receive interrup
 
@@ -99,7 +95,6 @@ void USART0_Init (void)
 void USART0_putc (char c)
 {
 	PORTD |= (1<<PORTD2);
-
 	for (int i; i<100; i++){
 	}
 	loop_until_bit_is_set(UCSR0A, UDRE0);
@@ -107,12 +102,12 @@ void USART0_putc (char c)
 	PORTD &= ~(1<<PORTD2);
 }
 
-
-uint8_t USART0_Getc_nb(uint8_t *c)
-{
-	if (rxhead0==rxtail0) return 0;
+uint8_t USART0_Getc_nb(uint8_t *c) {
+	if (rxhead0==rxtail0)
+		return 0;
 	*c = *rxtail0;
-	if (++rxtail0 == (rxbuf0 + UART_RXBUFSIZE)) rxtail0 = rxbuf0;
+	if (++rxtail0 == (rxbuf0 + UART_RXBUFSIZE))
+		rxtail0 = rxbuf0;
 
 //	uint8_t diff = rxhead0 - rxtail0;
 //	if((diff < 10)&&(xon==1))
