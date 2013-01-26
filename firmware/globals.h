@@ -30,6 +30,7 @@
 #include <avr/version.h>
 #include "lib/common.h"
 
+
 /* check for avr-libc version */
 #if __AVR_LIBC_VERSION__ < 10600UL
 #error "newer libc version (>= 1.6.0) needed!"
@@ -52,6 +53,7 @@
  * 		PD6: white
  * 		PD7: ultra violet
  */
+
 #define PWM_PORT D
 #define PWM_CHANNELS 5
 #define PWM_SHIFT 3
@@ -64,21 +66,10 @@
 #define EXTERN extern
 #endif
 
-//EXTERN uint8_t G_mode;     //Current Operating mode
-//EXTERN uint8_t G_trigger;
-//EXTERN bool G_greenUp;
-//EXTERN bool G_greenDown;
-//EXTERN bool G_redUp;
-//EXTERN bool G_redDown;
 
-//#define LONGPRESS             30 //300ms //grenze zwischen Klicken und lange drücken
-//#define STARTMODE              0         //operating mode to start with
-//#define NUMMODES               5                      //number of OP Modes
-//#define VALUEHOLD             50 //How long to hold maximum Values in Diags mode
-//#define INITIAL_TRIGGER  5 //anf�ngliche Empfindlichkeitssschwelle
-//#define HITEXPIRETIME  500 //maximal Dauer einer Trefferanzeige
-//#define PWRFADE_CONST 64
-//#define PWRFADE_DELAY  80
-//#define PWR_HITUP              5
+EXTERN uint8_t G_hwaddr;
+EXTERN uint8_t G_swaddr;
+
+
 
 #endif				/* GLOBALS_H */
