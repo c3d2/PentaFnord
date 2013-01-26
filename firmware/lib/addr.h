@@ -23,7 +23,7 @@
 #ifndef _ADDR_H
 #define _ADDR_H
 
-#define ADDR_OFFSET (0x00); //offset between hardware coded address and software address
+#define ADDR_OFFSET (0xF0) //offset between hardware coded address and software address
 
 void ADDR_Init (void);  //initializes the address by reading it from hardware
 

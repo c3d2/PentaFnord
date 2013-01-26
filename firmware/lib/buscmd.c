@@ -34,38 +34,111 @@
 #include "color.h"
 #include "buscmd.h"
 #include "usart.h"
+#include "addr.h"
+
+
+uint8_t	led_r = 1;//white
+uint8_t	led_g = 1;//blue
+uint8_t	led_b = 1;//green
+uint8_t	led_w = 1;//red
+
+uint8_t idx = 0;
+uint8_t escape = 0;
+uint8_t our_data = 0;
+
 
 void buscmd_poll(void) {
-	uint8_t data = 0;
-	if (USART0_Getc_nb(&data)) {
-		//USART0_putc(~0x55);
-		if (data == 'w') {  //0x30 = 0
-			pwm_set_rgb(&((struct rgb_color_t) {
-				       0x00, 0x00, 0x00, 0xFF, 0x00}));
+
+	for(uint8_t i=0; i<0x10; i++) //read max 16 Byte 
+	{
+		uint8_t data = 0;
+
+		if(USART0_Getc_nb(&data))
+		{
+
+			if(data == 0x42)
+			{
+				idx = 0;
+				escape = 0;
+				our_data = 0;
+				continue;
+				
+			} else if (data == 0x23)
+			{
+				idx=5;
+				continue;
+			} else if (data == 0x65)
+			{
+				escape = 1;
+				continue;
+			}
+
+			if(escape == 1)
+			{
+				if(data == 1)
+				{
+					data = 0x23;
+				}
+				else if (data == 2)
+				{
+					data = 0x42;
+				}
+				else if (data == 3)
+				{
+					data = 0x65;
+				}
+				else if (data == 4)
+				{
+					data = 0x66;
+				}
+				escape = 0;
+			}
+
+			if(idx == 0)
+			{
+				if(data == G_swaddr)//addr
+				{
+					our_data = 1;
+				} else if(data == ADDR_OFFSET)//bcast
+				{
+					our_data = 1;
+				}
+				else
+				{
+					our_data = 0;
+				}
+			} 
+			else if(our_data == 1)
+			{
+			
+				if (idx == 1)
+				{
+					led_r = data;//red
+				} else if (idx == 2)
+				{
+					led_g  = data;//green
+				} else if (idx == 3)
+				{
+					led_b = data;//blue
+				} else if (idx == 4)
+				{
+					led_w = data;//white
+					our_data = 0;
+					pwm_set_rgb(&((struct rgb_color_t) {
+				        led_r, led_g, led_b, led_w, 0x00}));
+				}
+				
+			}
+			if(idx < 5)
+			{
+				idx++;
+			}
 		}
-		if (data == 'r') {
-			pwm_set_rgb(&((struct rgb_color_t) {
-				       0xFF, 0x00, 0x00, 0x00, 0x00}));
-		}
-		if (data == 'G') {
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0x00, 0xFF, 0x00, 0x00, 0x00}),0x08,1);
-		}
-		if (data == 'g') {
-			pwm_set_rgb(&((struct rgb_color_t) {
-				       0x00, 0xFF, 0x00, 0x00, 0x00}));
-		}
-		if (data == 'b') {
-			pwm_set_rgb(&((struct rgb_color_t) {
-				       0x00, 0x00, 0xFF, 0x00, 0x00}));
-		}
-		if (data == 'u') {
-			pwm_set_rgb(&((struct rgb_color_t) {
-				       0x00, 0x00, 0x00, 0x00, 0xFF}));
-		}
-		if (data == ' ') {
-			pwm_set_rgb(&((struct rgb_color_t) {
-				       0x00, 0x00, 0x00, 0x00, 0x00}));
-		}
+
 	}
 } //end buscmd_poll()
+
+
+
+
+

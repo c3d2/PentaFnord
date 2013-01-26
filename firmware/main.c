@@ -38,7 +38,7 @@
 
 #include "globals.h"
 
-#include "lib/button.h"
+//#include "lib/button.h"
 #include "lib/pwm.h"
 #include "lib/color.h"
 #include "lib/timer.h"
@@ -64,7 +64,7 @@ int main(void)
 	ADDR_Init();
 	pwm_init();
 	timer_init();
-	button_init();
+//	button_init();
 	USART0_Init();
 
 
@@ -108,7 +108,7 @@ int main(void)
 	while (1) {
 
 		pwm_poll();
-
+/*
 		if (btn_state(BTNST_SUP, BTN_UP)) {
 			pwm_fade_rgb(&((struct rgb_color_t) {
 				       0xFF, 0x00, 0x00, 0x00, 0x00}), 2, 1);
@@ -146,11 +146,12 @@ int main(void)
 				       0xFF, 0xFF, 0xFF, 0xFF, 0xFF}), 2, 1);
 			button_clear(BTN_CENTER);
 		}
+*/
 		pwm_poll();
 		pwm_poll_fading();
 		buscmd_poll();
 		pwm_poll();
-		button_poll();
+//		button_poll();
 		pwm_poll();
 
 	}

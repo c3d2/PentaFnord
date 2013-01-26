@@ -77,6 +77,7 @@ void ADDR_Init (void) {  //initializes the address by reading it from hardware
 //	G_hwaddr = 0x03;
 //	G_hwaddr = 4;
 	G_swaddr = (uint16_t) G_hwaddr + ADDR_OFFSET;
+	G_swaddr = G_swaddr > 0xF5 ? 0xF5 : G_swaddr;
 	//G_swaddr = 0x00;
 
 
