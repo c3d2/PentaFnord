@@ -63,14 +63,14 @@ clean:
 #########################################################################
 
 fuse: 
-	$(AVRDUDE) -p m88 -F -c usbtiny  -v -v  $(FUSES)
+	$(AVRDUDE) -p m48 -F -c usbtiny  -v -v  $(FUSES)
 
 flash: $(PROJECT).hex Makefile
-	$(AVRDUDE) -p m88 -F -c usbtiny  -v -v  -B 1 -U flash:w:$(PROJECT).hex
+	$(AVRDUDE) -p m48 -F -c usbtiny  -v -v  -B 1 -U flash:w:$(PROJECT).hex
 
 
 flashmart: $(PROJECT).hex Makefile
-	$(AVRDUDE) -p m88 -F  -P /dev/ttyUSB0 -c stk500v2 -v -v  -U flash:w:$(PROJECT).hex
+	$(AVRDUDE) -p m48 -F  -P /dev/ttyUSB0 -c stk500v2 -v -v  -U flash:w:$(PROJECT).hex
 
 
 .PHONY : clean all fuse flash flashsmart
