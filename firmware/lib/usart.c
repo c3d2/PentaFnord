@@ -22,12 +22,9 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
-
-//#include "main.h"
 #include "usart.h"
 
 #define UART_RXBUFSIZE 32
-
 volatile static uint8_t rxbuf0[UART_RXBUFSIZE];
 volatile static uint8_t *volatile rxhead0, *volatile rxtail0;
 //volatile uint8_t xon = 0;
@@ -61,7 +58,9 @@ void USART0_Init(void) {
 	// set baudrate
 #define 	BAUD_TOL   4
 #undef 		BAUD
-#define 	BAUD 115200
+//#define 	BAUD 9600
+//#define 	BAUD 115200
+#define 	BAUD 500000
 #include <util/setbaud.h>
 	UBRR0H = UBRRH_VALUE;
 	UBRR0L = UBRRL_VALUE;
@@ -97,8 +96,9 @@ void USART0_putc (char c)
 	PORTD |= (1<<PORTD2);
 	for (int i; i<100; i++){
 	}
-	loop_until_bit_is_set(UCSR0A, UDRE0);
+   	loop_until_bit_is_set(UCSR0A, UDRE0);
 	UDR0 = c;
+
 	PORTD &= ~(1<<PORTD2);
 }
 
@@ -118,3 +118,21 @@ uint8_t USART0_Getc_nb(uint8_t *c) {
 
 	return 1;
 }
+
+
+
+void USART0_crlf(void) {
+	USART0_putc(0x0A); //newline
+	USART0_putc(0x0D); //carriage return
+};
+
+void USART0_put_uint8(uint8_t x) {
+	uint8_t highchar = ((x & 0b11110000) >> 4) + 0x30;
+	uint8_t lowchar = (x & 0b00001111) + 0x30;
+	highchar = highchar > 0x39 ? highchar + 0x07 : highchar; //chars A to F start with 0x41 not 0x3A
+	lowchar = lowchar > 0x39 ? lowchar + 0x07 : lowchar;
+	USART0_putc(highchar);
+	USART0_putc(lowchar);
+
+}
+
