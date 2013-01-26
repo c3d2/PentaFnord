@@ -44,13 +44,10 @@
 #include "lib/timer.h"
 #include "lib/common.h"
 #include "lib/usart.h"
+#include "lib/addr.h"
+#include "lib/buscmd.h"
 
-//void mode_poll();
 
-volatile uint8_t count;
-
-uint8_t red = 0;
-uint8_t green = 0;
 
 int main(void)
 {
@@ -64,10 +61,12 @@ int main(void)
 //      G_mode = STARTMODE;
 //      G_trigger = INITIAL_TRIGGER;
 
+	ADDR_Init();
 	pwm_init();
 	timer_init();
 	button_init();
 	USART0_Init();
+
 
 	/* enable interrupts globally */
 	sei();
@@ -89,7 +88,23 @@ int main(void)
 	//pwm_set_color(&((struct rgb_color_t){0x00,0x00,0x20,0x00,0xFF}));
 
 	pwm_fade_rgb(&((struct rgb_color_t) {
-		       0x01, 0x01, 0x01, 0x01, 0x00}), 1, 0);
+		       0x01, 0x01, 0x01, 0x01, 0x01}), 1, 0);
+
+	uint8_t ar = (G_hwaddr & 0x01) != 0 ? 0x20 : 0x00; 
+	uint8_t ag = (G_hwaddr & 0x02) != 0 ? 0x20 : 0x00; 
+	uint8_t ab = (G_hwaddr & 0x04) != 0 ? 0x20 : 0x00;
+	uint8_t aw = (G_hwaddr & 0x08) != 0 ? 0x20 : 0x00;
+	uint8_t au = (G_hwaddr & 0x10) != 0 ? 0x20 : 0x00;
+
+	pwm_fade_rgb(&((struct rgb_color_t) {
+		       ar, ag, ab, aw, au}), 1, 0);
+
+
+//	USART0_putc ('x');
+//	void USART0_put_uint8(uint8_t);
+//	USART0_crlf();
+//	USART0_putc ('y');
+
 	while (1) {
 
 		pwm_poll();
@@ -133,42 +148,7 @@ int main(void)
 		}
 		pwm_poll();
 		pwm_poll_fading();
-
-		uint8_t data = 0;
-		if (USART0_Getc_nb(&data)) {
-			//USART0_putc(~0x55);
-			if (data == 0x30) {
-				pwm_fade_rgb(&((struct rgb_color_t) {
-					       0xFF, 0xFF, 0xFF, 0xFF, 0xFF}),
-					     0xFF, 1);
-				//USART0_putc('w');
-			}
-			if (data == 0x31) {
-				pwm_fade_rgb(&((struct rgb_color_t) {
-					       0xFF, 0x00, 0x00, 0x00, 0x00}),
-					     0xFF, 1);
-				//USART0_putc('r');
-			}
-			if (data == 0x32) {
-				pwm_fade_rgb(&((struct rgb_color_t) {
-					       0x00, 0xFF, 0x00, 0x00, 0x00}),
-					     0xFF, 1);
-				//USART0_putc('g');
-			}
-			if (data == 0x33) {
-				pwm_fade_rgb(&((struct rgb_color_t) {
-					       0x00, 0x00, 0xFF, 0x00, 0x00}),
-					     0xFF, 1);
-				//USART0_putc('b');
-			}
-			if (data == 0x20) {
-				pwm_fade_rgb(&((struct rgb_color_t) {
-					       0x00, 0x00, 0x00, 0x00, 0x00}),
-					     0xFF, 1);
-				//USART0_putc('0');
-			}
-		}
-	//USART0_putc('1');
+		buscmd_poll();
 		pwm_poll();
 		button_poll();
 		pwm_poll();
