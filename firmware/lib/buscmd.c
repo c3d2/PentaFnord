@@ -40,50 +40,28 @@ void buscmd_poll(void) {
 	if (USART0_Getc_nb(&data)) {
 		//USART0_putc(~0x55);
 		if (data == 'w') {  //0x30 = 0
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0xFF, 0xFF, 0xFF, 0xFF, 0xFF}),
-				     0xFF, 1);
-			//USART0_putc('w');
+			pwm_set_rgb(&((struct rgb_color_t) {
+				       0x00, 0x00, 0x00, 0xFF, 0x00}));
 		}
 		if (data == 'r') {
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0xFF, 0x00, 0x00, 0x00, 0x00}),
-				     0xFF, 1);
-	//				USART0_putc('b');
-		
-	//				USART0_putc('2');
-	//				USART0_putc('3');
-
-		//USART0_crlf();
-			USART0_put_uint8(G_hwaddr);
-			//USART0_crlf();
-
-		
+			pwm_set_rgb(&((struct rgb_color_t) {
+				       0xFF, 0x00, 0x00, 0x00, 0x00}));
 		}
 		if (data == 'g') {
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0x00, 0xFF, 0x00, 0x00, 0x00}),
-				     0x08, 1);
-			//USART0_putc('g');
+			pwm_set_rgb(&((struct rgb_color_t) {
+				       0x00, 0xFF, 0x00, 0x00, 0x00}));
 		}
 		if (data == 'b') {
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0x00, 0x00, 0xFF, 0x00, 0x00}),
-				     0x01, 2);
-			//USART0_putc('b');
+			pwm_set_rgb(&((struct rgb_color_t) {
+				       0x00, 0x00, 0xFF, 0x00, 0x00}));
 		}
 		if (data == 'u') {
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0x00, 0x00, 0x00, 0x00, 0xFF}),
-				     0x01, 2);
-			//USART0_putc('b');
+			pwm_set_rgb(&((struct rgb_color_t) {
+				       0x00, 0x00, 0x00, 0x00, 0xFF}));
 		}
-
 		if (data == ' ') {
-			pwm_fade_rgb(&((struct rgb_color_t) {
-				       0x00, 0x00, 0x00, 0x00, 0x00}),
-				     0xFF, 1);
-			//USART0_putc('0');
+			pwm_set_rgb(&((struct rgb_color_t) {
+				       0x00, 0x00, 0x00, 0x00, 0x00}));
 		}
 	}
 } //end buscmd_poll()

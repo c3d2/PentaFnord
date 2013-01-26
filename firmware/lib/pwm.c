@@ -117,7 +117,6 @@ static const uint16_t timeslot_table[] PROGMEM =	//ALEX' EXPONENTIAL CURVE
 
 /* GLOBAL VARIABLES */
 struct global_pwm_t global_pwm;
-static struct timeslots_t timeslots;
 static struct fading_engine_t fading;
 
 /* encapsulates all pwm data including timeslot and output mask array */
@@ -131,7 +130,7 @@ register uint8_t timeslots_read asm("r3");	/* current read head in 'slot' array 
 void update_pwm_timeslots(struct rgb_color_t *target);
 void update_rgb(uint8_t c);
 void enqueue_timeslot(uint8_t mask, uint16_t top);
-struct timeslot_t *dequeue_timeslot();
+//struct timeslot_t *dequeue_timeslot();
 void update_last_timeslot(uint8_t mask);
 uint8_t timeslots_fill(void);
 
@@ -338,13 +337,6 @@ void enqueue_timeslot(uint8_t mask, uint16_t top)
 		timeslots_write = 0;
 }
 
-//inline struct timeslot_t * dequeue_timeslot()
-//{
-//    struct timeslot_t *t = &timeslots.slot[timeslot_read];
-//    timeslot_read++;
-//    if (timeslot_read >= PWM_MAX_TIMESLOTS) timeslot_read =0;
-//    return t;
-//}
 
 void update_last_timeslot(uint8_t mask)
 {
@@ -469,25 +461,13 @@ bool pwm_target_reached(void)
 	return true;
 }
 
-/* modify current color */
-void pwm_modify_rgb(struct rgb_color_offset_t *color, uint8_t step,
-		    uint8_t delay)
-{
-	for (uint8_t i = 0; i < PWM_CHANNELS; i++) {
-		int16_t current = global_pwm.target.rgbwu[i];
-		current += color->rgbwu[i];
-
-		if (current > 255)
-			current = 255;
-		if (current < 0)
-			current = 0;
-
-		global_pwm.target.rgbwu[i] = LO8(current);
-	}
-
-	compute_speed(step, delay);
-
-	/* disable timer */
+/* set color without fading */
+void pwm_set_rgb(struct rgb_color_t *color) {
+	/* set target color */
+	for (uint8_t i = 0; i < PWM_CHANNELS; i++)
+		global_pwm.current.rgbwu[i] = color->rgbwu[i];
+	memcpy(&global_pwm.target.rgbwu, &global_pwm.current.rgbwu,
+	       sizeof(struct rgb_color_t));
 	fading.running = 0;
 }
 
