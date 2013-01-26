@@ -438,8 +438,8 @@ void pwm_fade_rgb(struct rgb_color_t *color, uint8_t step, uint8_t delay)
 {
 
 	/* set target color */
-	for (uint8_t i = 0; i < PWM_CHANNELS; i++)
-		global_pwm.target.rgbwu[i] = color->rgbwu[i];
+	memcpy(&global_pwm.target.rgbwu, color,
+	       sizeof(struct rgb_color_t));
 
 	/* compute correct speed for all channels */
 	if (delay == 0)
@@ -464,10 +464,15 @@ bool pwm_target_reached(void)
 /* set color without fading */
 void pwm_set_rgb(struct rgb_color_t *color) {
 	/* set target color */
-	for (uint8_t i = 0; i < PWM_CHANNELS; i++)
-		global_pwm.current.rgbwu[i] = color->rgbwu[i];
-	memcpy(&global_pwm.target.rgbwu, &global_pwm.current.rgbwu,
+//	for (uint8_t i = 0; i < PWM_CHANNELS; i++)
+//		global_pwm.current.rgbwu[i] = color->rgbwu[i];
+	memcpy(&global_pwm.target.rgbwu, color,
 	       sizeof(struct rgb_color_t));
+	memcpy(&global_pwm.current.rgbwu, color,
+	       sizeof(struct rgb_color_t));
+
+//	memcpy(&global_pwm.target.rgbwu, &global_pwm.current.rgbwu,
+//	       sizeof(struct rgb_color_t));
 	fading.running = 0;
 }
 

@@ -47,6 +47,10 @@ void buscmd_poll(void) {
 			pwm_set_rgb(&((struct rgb_color_t) {
 				       0xFF, 0x00, 0x00, 0x00, 0x00}));
 		}
+		if (data == 'G') {
+			pwm_fade_rgb(&((struct rgb_color_t) {
+				       0x00, 0xFF, 0x00, 0x00, 0x00}),0x08,1);
+		}
 		if (data == 'g') {
 			pwm_set_rgb(&((struct rgb_color_t) {
 				       0x00, 0xFF, 0x00, 0x00, 0x00}));
